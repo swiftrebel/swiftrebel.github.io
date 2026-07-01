@@ -449,17 +449,40 @@
     padding: 40px 0;
   }
 
-  /* --- Empresa placeholder --- */
-  .placeholder-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+  /* --- Empresa --- */
+  .company-logo-card {
+    background: var(--card-bg);
+    border-radius: 14px;
     padding: 20px;
-    color: var(--text-muted);
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  .company-logo-preview {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #fdece1;
+    padding: 12px 18px;
+    border-radius: 14px;
+  }
+
+  .company-logo-preview img {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+
+  .change-logo-btn {
+    display: block;
+    margin: 12px auto 0;
+    background: none;
+    border: none;
+    color: var(--orange);
     font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
   }
 
   /* --- Nueva cotización modal header --- */
@@ -1196,10 +1219,73 @@
 
   <section class="view" id="view-empresa">
     <header class="list-header">
-      <div class="list-title">Empresa</div>
+      <div class="list-title">Datos de empresa</div>
     </header>
-    <div class="placeholder-content">
-      Próximamente: información de tu empresa y equipo.
+
+    <div class="content">
+      <div class="company-logo-card">
+        <div class="company-logo-preview">
+          <div class="brand-logo" id="company-logo-fallback">V</div>
+          <img id="company-logo-img" alt="Logo de la empresa" hidden>
+          <div>
+            <div class="brand-name">VIEXSA</div>
+            <div class="brand-sub">Vidrios interiores y exteriores S.A.</div>
+          </div>
+        </div>
+        <button type="button" class="change-logo-btn" id="change-logo-btn">Cambiar logo</button>
+        <input type="file" id="logo-file-input" accept="image/*" hidden>
+      </div>
+
+      <div class="form-section-label" style="margin-top: 20px;">Información</div>
+      <div class="form-card">
+        <div class="form-row">
+          <label for="company-name">Empresa</label>
+          <input type="text" id="company-name">
+        </div>
+        <div class="form-row">
+          <label for="company-address">Dirección</label>
+          <input type="text" id="company-address">
+        </div>
+        <div class="form-row">
+          <label for="company-phones">Teléfonos</label>
+          <input type="text" id="company-phones">
+        </div>
+        <div class="form-row">
+          <label for="company-email">Email</label>
+          <input type="email" id="company-email">
+        </div>
+        <div class="form-row">
+          <label for="company-ruc">R.U.C.</label>
+          <input type="text" id="company-ruc">
+        </div>
+      </div>
+
+      <div class="form-section-label" style="margin-top: 20px;">Valores por defecto</div>
+      <div class="form-card">
+        <div class="form-row">
+          <label for="default-encargado">Encargado</label>
+          <input type="text" id="default-encargado">
+        </div>
+        <div class="form-row">
+          <label for="default-delivery">Tiempo de entrega</label>
+          <input type="text" id="default-delivery">
+        </div>
+        <div class="form-row">
+          <label for="default-warranty">Garantía</label>
+          <input type="text" id="default-warranty">
+        </div>
+        <div class="form-row">
+          <label for="default-validity">Validez del precio</label>
+          <input type="text" id="default-validity">
+        </div>
+        <div class="form-row">
+          <label for="default-itbms">ITBMS por defecto</label>
+          <div class="price-field">
+            <input type="number" id="default-itbms" min="0" max="100" step="0.1">
+            <span>%</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1240,7 +1326,7 @@
       <div>
         <div class="form-section-label">Impuesto</div>
         <div class="switch-row">
-          <span>Aplicar ITBMS (7%)</span>
+          <span id="tax-toggle-label">Aplicar ITBMS (7%)</span>
           <label class="switch">
             <input type="checkbox" id="tax-toggle" checked>
             <span class="track"></span>
@@ -1254,7 +1340,7 @@
           <span class="value" id="totals-subtotal">B/. 0.00</span>
         </div>
         <div class="totals-row" id="totals-tax-row">
-          <span>ITBMS (7%)</span>
+          <span id="totals-tax-label">ITBMS (7%)</span>
           <span class="value" id="totals-tax">B/. 0.00</span>
         </div>
         <div class="totals-row total">
@@ -1446,6 +1532,55 @@
       return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
     }
 
+    // ---------- Company settings ----------
+    const COMPANY_STORAGE_KEY = "viexsa-company";
+    const DEFAULT_COMPANY = {
+      name: "VIEXSA — Vidrios Interiores y Exteriores S.A.",
+      address: "Villa Guadalupe, calle A, lote 3-68",
+      phones: "6617-8255 / 6925-0944",
+      email: "vidriointeriores@gmail.com",
+      ruc: "1987541-1-738127 D.V. 58",
+      encargado: "Javier A. Sánchez F.",
+      delivery: "15 a 18 días",
+      warranty: "6 meses",
+      validity: "30 días",
+      itbms: 7,
+      logoDataUrl: "",
+    };
+
+    function loadCompanyData() {
+      try {
+        const raw = localStorage.getItem(COMPANY_STORAGE_KEY);
+        return raw ? { ...DEFAULT_COMPANY, ...JSON.parse(raw) } : { ...DEFAULT_COMPANY };
+      } catch {
+        return { ...DEFAULT_COMPANY };
+      }
+    }
+
+    let companyData = loadCompanyData();
+
+    function saveCompanyData() {
+      localStorage.setItem(COMPANY_STORAGE_KEY, JSON.stringify(companyData));
+    }
+
+    function getCompanyDoc() {
+      return {
+        name: "VIEXSA",
+        sub: "Vidrios interiores y exteriores",
+        contact: `${companyData.address} · Tel: ${companyData.phones} · ${companyData.email} · R.U.C. ${companyData.ruc}`,
+        preparedBy: companyData.encargado,
+      };
+    }
+
+    function getTerms() {
+      return {
+        delivery: `${companyData.delivery} laborables`,
+        general: ["Sistema europeo de alta calidad", "Perfil de calidad y durabilidad"],
+        warranty: `${companyData.warranty} en instalación, material y mano de obra`,
+        validity: companyData.validity,
+      };
+    }
+
     // ---------- Quotes data ----------
     let quotes = [
       { name: "Madelaine de Sosa", desc: "Vidrios de mesa", dateLabel: "11 Jun 2026", amount: 2632.20, status: "enviada" },
@@ -1623,9 +1758,15 @@
 
     taxToggle.addEventListener("change", recalcTotals);
 
+    function renderItbmsLabels() {
+      const label = `ITBMS (${companyData.itbms}%)`;
+      document.getElementById("tax-toggle-label").textContent = `Aplicar ${label}`;
+      document.getElementById("totals-tax-label").textContent = label;
+    }
+
     function recalcTotals() {
       const subtotal = formProducts.reduce((sum, p) => sum + (p.price || 0), 0);
-      const tax = taxToggle.checked ? subtotal * 0.07 : 0;
+      const tax = taxToggle.checked ? subtotal * (companyData.itbms / 100) : 0;
       const total = subtotal + tax;
       document.getElementById("totals-subtotal").textContent = formatCurrency(subtotal);
       document.getElementById("totals-tax").textContent = formatCurrency(tax);
@@ -1674,7 +1815,7 @@
 
     function computeTotals(products) {
       const subtotal = products.reduce((sum, p) => sum + p.price, 0);
-      const tax = taxToggle.checked ? subtotal * 0.07 : 0;
+      const tax = taxToggle.checked ? subtotal * (companyData.itbms / 100) : 0;
       return { subtotal, tax, total: subtotal + tax };
     }
 
@@ -1728,13 +1869,15 @@
     }
 
     function renderDocPage(fields, totals) {
+      const company = getCompanyDoc();
+      const terms = getTerms();
       document.getElementById("doc-page").innerHTML = `
         <div class="doc-header">
           <div class="doc-brand">
             <div class="doc-logo">V</div>
             <div>
-              <div class="doc-brand-name">${COMPANY.name}</div>
-              <div class="doc-brand-sub">${escapeHtml(COMPANY.sub)}</div>
+              <div class="doc-brand-name">${company.name}</div>
+              <div class="doc-brand-sub">${escapeHtml(company.sub)}</div>
             </div>
           </div>
           <div class="doc-title-block">
@@ -1742,7 +1885,7 @@
             <div class="doc-date">${fields.dateLabel}</div>
           </div>
         </div>
-        <div class="doc-contact">${escapeHtml(COMPANY.contact)}</div>
+        <div class="doc-contact">${escapeHtml(company.contact)}</div>
         <hr class="doc-divider">
         <div class="doc-client-row"><span class="label">CLIENTE:</span><span class="value">${escapeHtml(fields.name.toUpperCase())}</span></div>
         <div class="doc-client-row"><span class="label">DIRECCIÓN:</span><span class="value">${escapeHtml(fields.address.toUpperCase())}</span></div>
@@ -1766,21 +1909,21 @@
         <div class="doc-totals">
           <div class="doc-totals-box">
             <div class="doc-totals-row"><span>Sub-total</span><span>${formatCurrency(totals.subtotal)}</span></div>
-            ${taxToggle.checked ? `<div class="doc-totals-row"><span>ITBMS</span><span>${formatCurrency(totals.tax)}</span></div>` : ""}
+            ${taxToggle.checked ? `<div class="doc-totals-row"><span>ITBMS (${companyData.itbms}%)</span><span>${formatCurrency(totals.tax)}</span></div>` : ""}
             <div class="doc-totals-row total"><span>TOTAL</span><span>${formatCurrency(totals.total)}</span></div>
           </div>
         </div>
         <div class="doc-terms">
           <span class="doc-terms-label">TIEMPO DE ENTREGA E INSTALACIÓN:</span>
-          ${escapeHtml(TERMS.delivery)}
+          ${escapeHtml(terms.delivery)}
           <span class="doc-terms-label">DETALLES GENERALES:</span>
-          ${TERMS.general.map((t) => `- ${escapeHtml(t)}`).join("<br>")}
+          ${terms.general.map((t) => `- ${escapeHtml(t)}`).join("<br>")}
           <span class="doc-terms-label">GARANTÍA DE:</span>
-          ${escapeHtml(TERMS.warranty)}
+          ${escapeHtml(terms.warranty)}
         </div>
         <div class="doc-signatures">
           <div class="doc-signature">
-            <div class="name">${escapeHtml(COMPANY.preparedBy.toUpperCase())}</div>
+            <div class="name">${escapeHtml(company.preparedBy.toUpperCase())}</div>
             <div class="role">ENCARGADO</div>
           </div>
           <div class="doc-signature">
@@ -1788,11 +1931,13 @@
             <div class="role">ACEPTANDO CONTRATO</div>
           </div>
         </div>
-        <div class="doc-footer">Precio válido por 30 días</div>
+        <div class="doc-footer">Precio válido por ${escapeHtml(terms.validity)}</div>
       `;
     }
 
     function buildQuotePdf(fields, totals) {
+      const company = getCompanyDoc();
+      const terms = getTerms();
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ unit: "mm", format: "letter" });
       const pageWidth = doc.internal.pageSize.getWidth();
@@ -1808,11 +1953,11 @@
 
       doc.setTextColor(240, 99, 31);
       doc.setFontSize(13);
-      doc.text(COMPANY.name, marginX + 12, y - 1.5);
+      doc.text(company.name, marginX + 12, y - 1.5);
       doc.setTextColor(140, 140, 140);
       doc.setFont("helvetica", "normal");
       doc.setFontSize(7.5);
-      doc.text(COMPANY.sub, marginX + 12, y + 3);
+      doc.text(company.sub, marginX + 12, y + 3);
 
       doc.setTextColor(20, 20, 20);
       doc.setFont("helvetica", "bold");
@@ -1830,7 +1975,7 @@
 
       doc.setFontSize(7);
       doc.setTextColor(140, 140, 140);
-      doc.text(doc.splitTextToSize(COMPANY.contact, pageWidth - marginX * 2), marginX, y);
+      doc.text(doc.splitTextToSize(company.contact, pageWidth - marginX * 2), marginX, y);
       y += 9;
 
       doc.setFontSize(9);
@@ -1895,7 +2040,7 @@
       const totalsW = 65;
       const totalsX = pageWidth - marginX - totalsW;
       const totalsRows = [["Sub-total", totals.subtotal]];
-      if (taxToggle.checked) totalsRows.push(["ITBMS", totals.tax]);
+      if (taxToggle.checked) totalsRows.push([`ITBMS (${companyData.itbms}%)`, totals.tax]);
       totalsRows.push(["TOTAL", totals.total]);
       totalsRows.forEach(([label, val]) => {
         const isTotal = label === "TOTAL";
@@ -1915,19 +2060,19 @@
       doc.setFontSize(8);
       doc.text("TIEMPO DE ENTREGA E INSTALACIÓN:", marginX, y);
       doc.setFont("helvetica", "normal");
-      doc.text(TERMS.delivery, marginX, y + 4.5);
+      doc.text(terms.delivery, marginX, y + 4.5);
       y += 11;
 
       doc.setFont("helvetica", "bold");
       doc.text("DETALLES GENERALES:", marginX, y);
       doc.setFont("helvetica", "normal");
-      TERMS.general.forEach((line, i) => doc.text(`- ${line}`, marginX, y + 4.5 + i * 4.2));
-      y += 5 + TERMS.general.length * 4.2;
+      terms.general.forEach((line, i) => doc.text(`- ${line}`, marginX, y + 4.5 + i * 4.2));
+      y += 5 + terms.general.length * 4.2;
 
       doc.setFont("helvetica", "bold");
       doc.text("GARANTÍA DE:", marginX, y);
       doc.setFont("helvetica", "normal");
-      doc.text(TERMS.warranty, marginX, y + 4.5);
+      doc.text(terms.warranty, marginX, y + 4.5);
       y += 16;
 
       const sigW = (pageWidth - marginX * 2 - 16) / 2;
@@ -1938,7 +2083,7 @@
       doc.setFont("helvetica", "bold");
       doc.setFontSize(8);
       doc.setTextColor(25, 25, 25);
-      doc.text(COMPANY.preparedBy.toUpperCase(), marginX + sigW / 2, y, { align: "center" });
+      doc.text(company.preparedBy.toUpperCase(), marginX + sigW / 2, y, { align: "center" });
       doc.text(fields.name.toUpperCase(), pageWidth - marginX - sigW / 2, y, { align: "center" });
       y += 4;
       doc.setFont("helvetica", "normal");
@@ -1951,7 +2096,7 @@
       doc.setFont("helvetica", "italic");
       doc.setFontSize(7.5);
       doc.setTextColor(150, 150, 150);
-      doc.text("Precio válido por 30 días", pageWidth / 2, y, { align: "center" });
+      doc.text(`Precio válido por ${terms.validity}`, pageWidth / 2, y, { align: "center" });
 
       return doc;
     }
@@ -2021,7 +2166,70 @@
     document.getElementById("whatsapp-btn").addEventListener("click", shareToWhatsApp);
     document.getElementById("preview-share-btn").addEventListener("click", shareToWhatsApp);
 
+    // ---------- Empresa form ----------
+    const companyFieldInputs = {
+      name: document.getElementById("company-name"),
+      address: document.getElementById("company-address"),
+      phones: document.getElementById("company-phones"),
+      email: document.getElementById("company-email"),
+      ruc: document.getElementById("company-ruc"),
+      encargado: document.getElementById("default-encargado"),
+      delivery: document.getElementById("default-delivery"),
+      warranty: document.getElementById("default-warranty"),
+      validity: document.getElementById("default-validity"),
+      itbms: document.getElementById("default-itbms"),
+    };
+
+    function renderCompanyLogo() {
+      const img = document.getElementById("company-logo-img");
+      const fallback = document.getElementById("company-logo-fallback");
+      if (companyData.logoDataUrl) {
+        img.src = companyData.logoDataUrl;
+        img.hidden = false;
+        fallback.hidden = true;
+      } else {
+        img.hidden = true;
+        fallback.hidden = false;
+      }
+    }
+
+    function renderCompanyForm() {
+      Object.entries(companyFieldInputs).forEach(([key, input]) => {
+        input.value = companyData[key];
+      });
+      renderCompanyLogo();
+    }
+
+    Object.entries(companyFieldInputs).forEach(([key, input]) => {
+      input.addEventListener("input", () => {
+        companyData[key] = key === "itbms" ? parseFloat(input.value) || 0 : input.value;
+        saveCompanyData();
+        if (key === "itbms") {
+          renderItbmsLabels();
+          recalcTotals();
+        }
+      });
+    });
+
+    document.getElementById("change-logo-btn").addEventListener("click", () => {
+      document.getElementById("logo-file-input").click();
+    });
+
+    document.getElementById("logo-file-input").addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        companyData.logoDataUrl = reader.result;
+        saveCompanyData();
+        renderCompanyLogo();
+      };
+      reader.readAsDataURL(file);
+    });
+
     // ---------- Init ----------
+    renderCompanyForm();
+    renderItbmsLabels();
     renderRecientes();
     renderQuoteList();
     renderStats();
