@@ -815,6 +815,305 @@
   .preview-btn:active {
     opacity: 0.85;
   }
+
+  /* --- Vista previa --- */
+  #view-preview {
+    background: #2c2c2e;
+  }
+
+  .preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: calc(env(safe-area-inset-top, 0px) + 14px) 12px 14px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .preview-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .preview-icon-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .preview-scroll {
+    flex: 1;
+    padding: 4px 14px 14px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .doc-page {
+    background: #fff;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 480px;
+    padding: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    font-size: 8.5px;
+    color: #222;
+    height: fit-content;
+  }
+
+  .doc-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .doc-brand {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .doc-logo {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    background: var(--orange);
+    color: #fff;
+    font-weight: 700;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .doc-brand-name {
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--orange);
+    letter-spacing: 0.3px;
+  }
+
+  .doc-brand-sub {
+    font-size: 6px;
+    color: #999;
+  }
+
+  .doc-title-block {
+    text-align: right;
+  }
+
+  .doc-title-block .doc-title {
+    font-size: 11px;
+    font-weight: 800;
+    color: #1a1a1a;
+  }
+
+  .doc-title-block .doc-date {
+    font-size: 7px;
+    color: #888;
+    margin-top: 2px;
+  }
+
+  .doc-contact {
+    font-size: 6px;
+    color: #999;
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  .doc-divider {
+    border: none;
+    border-top: 1px solid #ececec;
+    margin: 8px 0;
+  }
+
+  .doc-client-row {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 3px;
+    font-size: 7.5px;
+  }
+
+  .doc-client-row .label {
+    font-weight: 800;
+    color: #1a1a1a;
+    flex-shrink: 0;
+  }
+
+  .doc-client-row .value {
+    color: #444;
+  }
+
+  .doc-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+    font-size: 6.8px;
+  }
+
+  .doc-table th {
+    background: var(--orange);
+    color: #fff;
+    font-weight: 700;
+    text-align: left;
+    padding: 4px 4px;
+  }
+
+  .doc-table th:last-child, .doc-table td:last-child {
+    text-align: right;
+  }
+
+  .doc-table td {
+    padding: 4px 4px;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: top;
+    color: #333;
+  }
+
+  .doc-totals {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+  }
+
+  .doc-totals-box {
+    width: 45%;
+    min-width: 130px;
+  }
+
+  .doc-totals-row {
+    display: flex;
+    justify-content: space-between;
+    background: var(--orange);
+    color: #fff;
+    padding: 3px 6px;
+    margin-bottom: 1px;
+    font-size: 7px;
+  }
+
+  .doc-totals-row.total {
+    font-weight: 800;
+    font-size: 7.5px;
+    background: #d4551a;
+  }
+
+  .doc-terms {
+    margin-top: 10px;
+    font-size: 6.8px;
+    color: #333;
+    line-height: 1.6;
+  }
+
+  .doc-terms .doc-terms-label {
+    font-weight: 800;
+    color: #1a1a1a;
+    display: block;
+    margin-top: 6px;
+  }
+
+  .doc-signatures {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .doc-signature {
+    flex: 1;
+    text-align: center;
+    border-top: 1px solid #ccc;
+    padding-top: 4px;
+  }
+
+  .doc-signature .name {
+    font-size: 7px;
+    font-weight: 800;
+    color: #1a1a1a;
+  }
+
+  .doc-signature .role {
+    font-size: 6px;
+    color: #999;
+    margin-top: 1px;
+  }
+
+  .doc-footer {
+    text-align: center;
+    font-size: 6.5px;
+    font-style: italic;
+    color: #999;
+    margin-top: 12px;
+  }
+
+  .preview-actions {
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    gap: 10px;
+    padding: 10px 14px calc(env(safe-area-inset-bottom, 0px) + 14px);
+  }
+
+  .share-btn {
+    flex: 1;
+    border: none;
+    border-radius: 14px;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+
+  .whatsapp-btn {
+    background: #25d366;
+  }
+
+  .pdf-btn {
+    background: var(--orange);
+  }
+
+  .share-btn:active {
+    opacity: 0.85;
+  }
+
+  /* --- Toast --- */
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    transform: translate(-50%, 20px);
+    background: #16161a;
+    color: #fff;
+    font-size: 13px;
+    padding: 12px 18px;
+    border-radius: 12px;
+    max-width: 85vw;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s, transform .25s;
+    z-index: 100;
+  }
+
+  .toast.visible {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
 </style>
 </head>
 <body>
@@ -1029,6 +1328,43 @@
     </div>
   </section>
 
+  <section class="view" id="view-preview">
+    <header class="preview-header">
+      <button class="preview-icon-btn" id="preview-back-btn" aria-label="Volver">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M15 5l-7 7 7 7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="preview-title">Vista previa</div>
+      <button class="preview-icon-btn" id="preview-share-btn" aria-label="Compartir">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M12 16V4M12 4l-4 4M12 4l4 4" stroke="#f0631f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5 14v5a2 2 0 002 2h10a2 2 0 002-2v-5" stroke="#f0631f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </header>
+
+    <div class="preview-scroll">
+      <div class="doc-page" id="doc-page"></div>
+    </div>
+
+    <div class="preview-actions">
+      <button class="share-btn whatsapp-btn" id="whatsapp-btn">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20zm4.4-6c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.6.1a6.6 6.6 0 01-1.9-1.2 7 7 0 01-1.3-1.6c-.1-.2 0-.4.1-.5l.4-.4.2-.3v-.3c0-.1-.6-1.4-.8-1.9s-.4-.4-.6-.4h-.5a1 1 0 00-.7.3 3 3 0 00-.9 2.2c0 1.3.9 2.6 1.1 2.8s1.7 2.6 4.2 3.6a14 14 0 001.4.5 3.4 3.4 0 001.6.1c.5-.1 1.5-.6 1.7-1.2s.2-1.1.1-1.2-.2-.2-.4-.3z"/></svg>
+        WhatsApp
+      </button>
+      <button class="share-btn pdf-btn" id="pdf-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path d="M12 3v12m0 0l-4-4m4 4l4-4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5 17v2a2 2 0 002 2h10a2 2 0 002-2v-2" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        PDF
+      </button>
+    </div>
+  </section>
+
+  <div class="toast" id="toast"></div>
+
   <nav class="tab-bar" id="tab-bar">
     <button class="tab active" data-view="inicio">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -1053,6 +1389,7 @@
     </button>
   </nav>
 
+  <script src="vendor/jspdf.umd.min.js"></script>
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
@@ -1296,6 +1633,8 @@
       totalsTaxRow.hidden = !taxToggle.checked;
     }
 
+    let currentQuoteRecord = null;
+
     function resetForm() {
       clientNameInput.value = "";
       clientAddressInput.value = "";
@@ -1304,6 +1643,7 @@
       productsContainer.classList.remove("input-error");
       formProducts = [];
       taxToggle.checked = true;
+      currentQuoteRecord = null;
       renderProductsSummary();
       recalcTotals();
     }
@@ -1319,41 +1659,367 @@
 
     document.getElementById("cancel-btn").addEventListener("click", () => switchView(returnView));
 
-    function saveQuote() {
+    function validateNuevaForm() {
       const name = clientNameInput.value.trim();
       const validProducts = formProducts.filter((p) => p.name.trim() && p.price > 0);
 
-      let hasError = false;
-      if (!name) {
-        clientNameInput.classList.add("input-error");
-        hasError = true;
-      }
-      if (validProducts.length === 0) {
-        productsContainer.classList.add("input-error");
-        hasError = true;
-      }
-      if (hasError) return;
-      productsContainer.classList.remove("input-error");
+      const nameOk = Boolean(name);
+      clientNameInput.classList.toggle("input-error", !nameOk);
+      const productsOk = validProducts.length > 0;
+      productsContainer.classList.toggle("input-error", !productsOk);
 
-      const subtotal = validProducts.reduce((sum, p) => sum + p.price, 0);
+      if (!nameOk || !productsOk) return null;
+      return { name, validProducts };
+    }
+
+    function computeTotals(products) {
+      const subtotal = products.reduce((sum, p) => sum + p.price, 0);
       const tax = taxToggle.checked ? subtotal * 0.07 : 0;
+      return { subtotal, tax, total: subtotal + tax };
+    }
 
-      quotes.unshift({
-        name,
-        desc: validProducts.map((p) => p.name.trim()).join(", "),
-        dateLabel: formatDateLabel(new Date()),
-        amount: subtotal + tax,
-        status: "pendiente",
-      });
-
+    function persistQuote(data, totals, status) {
+      if (!currentQuoteRecord) {
+        currentQuoteRecord = { dateLabel: formatDateLabel(new Date()), status: "pendiente" };
+        quotes.unshift(currentQuoteRecord);
+      }
+      currentQuoteRecord.name = data.name;
+      currentQuoteRecord.desc = data.validProducts.map((p) => p.name.trim()).join(", ");
+      currentQuoteRecord.amount = totals.total;
+      if (status === "enviada" || currentQuoteRecord.status !== "enviada") {
+        currentQuoteRecord.status = status;
+      }
       renderRecientes();
       renderQuoteList();
       renderStats();
+    }
+
+    function saveQuote() {
+      const data = validateNuevaForm();
+      if (!data) return;
+      persistQuote(data, computeTotals(data.validProducts), "pendiente");
       switchView("cotizaciones");
     }
 
     document.getElementById("save-btn").addEventListener("click", saveQuote);
-    document.getElementById("preview-btn").addEventListener("click", saveQuote);
+
+    // ---------- Vista previa & export ----------
+    const COMPANY = {
+      name: "VIEXSA",
+      sub: "Vidrios interiores y exteriores S.A.",
+      contact: "Calle Guadalupe, Local A · Tel: 6617-0234 / 6503-0964 · calle.central@gmail.com · R.U.C. 7987621-1-729127 D.V. 08",
+      preparedBy: "Javier A. Sánchez F.",
+    };
+
+    const TERMS = {
+      delivery: "15 a 18 días laborables",
+      general: ["Sistema europeo de alta calidad", "Perfil de calidad y durabilidad"],
+      warranty: "6 meses en instalación, material y mano de obra",
+    };
+
+    function docFieldsFromForm(data) {
+      return {
+        name: data.name,
+        address: clientAddressInput.value.trim() || "—",
+        productSummary: clientProductInput.value.trim() || data.validProducts[0].name,
+        products: data.validProducts,
+        dateLabel: formatDateLabel(new Date()),
+      };
+    }
+
+    function renderDocPage(fields, totals) {
+      document.getElementById("doc-page").innerHTML = `
+        <div class="doc-header">
+          <div class="doc-brand">
+            <div class="doc-logo">V</div>
+            <div>
+              <div class="doc-brand-name">${COMPANY.name}</div>
+              <div class="doc-brand-sub">${escapeHtml(COMPANY.sub)}</div>
+            </div>
+          </div>
+          <div class="doc-title-block">
+            <div class="doc-title">Cotización</div>
+            <div class="doc-date">${fields.dateLabel}</div>
+          </div>
+        </div>
+        <div class="doc-contact">${escapeHtml(COMPANY.contact)}</div>
+        <hr class="doc-divider">
+        <div class="doc-client-row"><span class="label">CLIENTE:</span><span class="value">${escapeHtml(fields.name.toUpperCase())}</span></div>
+        <div class="doc-client-row"><span class="label">DIRECCIÓN:</span><span class="value">${escapeHtml(fields.address.toUpperCase())}</span></div>
+        <div class="doc-client-row"><span class="label">PRODUCTO:</span><span class="value">${escapeHtml(fields.productSummary.toUpperCase())}</span></div>
+        <table class="doc-table">
+          <thead>
+            <tr><th>Cant.</th><th>Producto</th><th>Detalles</th><th>Ancho</th><th>Alto</th><th>Precio</th></tr>
+          </thead>
+          <tbody>
+            ${fields.products.map((p) => `
+              <tr>
+                <td>${p.qty}</td>
+                <td>${escapeHtml(p.name)}</td>
+                <td>${escapeHtml(p.desc || "—")}</td>
+                <td>${escapeHtml(p.width || "—")}</td>
+                <td>${escapeHtml(p.height || "—")}</td>
+                <td>${formatCurrency(p.price)}</td>
+              </tr>`).join("")}
+          </tbody>
+        </table>
+        <div class="doc-totals">
+          <div class="doc-totals-box">
+            <div class="doc-totals-row"><span>Sub-total</span><span>${formatCurrency(totals.subtotal)}</span></div>
+            ${taxToggle.checked ? `<div class="doc-totals-row"><span>ITBMS</span><span>${formatCurrency(totals.tax)}</span></div>` : ""}
+            <div class="doc-totals-row total"><span>TOTAL</span><span>${formatCurrency(totals.total)}</span></div>
+          </div>
+        </div>
+        <div class="doc-terms">
+          <span class="doc-terms-label">TIEMPO DE ENTREGA E INSTALACIÓN:</span>
+          ${escapeHtml(TERMS.delivery)}
+          <span class="doc-terms-label">DETALLES GENERALES:</span>
+          ${TERMS.general.map((t) => `- ${escapeHtml(t)}`).join("<br>")}
+          <span class="doc-terms-label">GARANTÍA DE:</span>
+          ${escapeHtml(TERMS.warranty)}
+        </div>
+        <div class="doc-signatures">
+          <div class="doc-signature">
+            <div class="name">${escapeHtml(COMPANY.preparedBy.toUpperCase())}</div>
+            <div class="role">ENCARGADO</div>
+          </div>
+          <div class="doc-signature">
+            <div class="name">${escapeHtml(fields.name.toUpperCase())}</div>
+            <div class="role">ACEPTANDO CONTRATO</div>
+          </div>
+        </div>
+        <div class="doc-footer">Precio válido por 30 días</div>
+      `;
+    }
+
+    function buildQuotePdf(fields, totals) {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ unit: "mm", format: "letter" });
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const marginX = 15;
+      let y = 18;
+
+      doc.setFillColor(240, 99, 31);
+      doc.roundedRect(marginX, y - 5, 8, 8, 1.5, 1.5, "F");
+      doc.setTextColor(255, 255, 255);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(10);
+      doc.text("V", marginX + 4, y, { align: "center" });
+
+      doc.setTextColor(240, 99, 31);
+      doc.setFontSize(13);
+      doc.text(COMPANY.name, marginX + 12, y - 1.5);
+      doc.setTextColor(140, 140, 140);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(7.5);
+      doc.text(COMPANY.sub, marginX + 12, y + 3);
+
+      doc.setTextColor(20, 20, 20);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(13);
+      doc.text("Cotización", pageWidth - marginX, y - 1.5, { align: "right" });
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(8.5);
+      doc.setTextColor(110, 110, 110);
+      doc.text(fields.dateLabel, pageWidth - marginX, y + 3, { align: "right" });
+
+      y += 9;
+      doc.setDrawColor(230, 230, 230);
+      doc.line(marginX, y, pageWidth - marginX, y);
+      y += 5;
+
+      doc.setFontSize(7);
+      doc.setTextColor(140, 140, 140);
+      doc.text(doc.splitTextToSize(COMPANY.contact, pageWidth - marginX * 2), marginX, y);
+      y += 9;
+
+      doc.setFontSize(9);
+      [
+        ["CLIENTE:", fields.name.toUpperCase()],
+        ["DIRECCIÓN:", fields.address.toUpperCase()],
+        ["PRODUCTO:", fields.productSummary.toUpperCase()],
+      ].forEach(([label, value]) => {
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(25, 25, 25);
+        doc.text(label, marginX, y);
+        doc.setFont("helvetica", "normal");
+        doc.setTextColor(70, 70, 70);
+        doc.text(value, marginX + 24, y);
+        y += 5.5;
+      });
+
+      y += 3;
+      const tableWidth = pageWidth - marginX * 2;
+      const cols = {
+        cant: marginX + 2,
+        prod: marginX + 14,
+        det: marginX + 60,
+        ancho: marginX + 118,
+        alto: marginX + 138,
+        precio: pageWidth - marginX - 2,
+      };
+      const headerH = 7;
+      doc.setFillColor(240, 99, 31);
+      doc.rect(marginX, y, tableWidth, headerH, "F");
+      doc.setTextColor(255, 255, 255);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(8);
+      doc.text("Cant.", cols.cant, y + 4.7);
+      doc.text("Producto", cols.prod, y + 4.7);
+      doc.text("Detalles", cols.det, y + 4.7);
+      doc.text("Ancho", cols.ancho, y + 4.7);
+      doc.text("Alto", cols.alto, y + 4.7);
+      doc.text("Precio", cols.precio, y + 4.7, { align: "right" });
+      y += headerH;
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(7.5);
+      fields.products.forEach((p) => {
+        const detLines = doc.splitTextToSize(p.desc || "—", 55);
+        const nameLines = doc.splitTextToSize(p.name, 44);
+        const lineCount = Math.max(1, detLines.length, nameLines.length);
+        const rowH = Math.max(7, 3.5 + lineCount * 3.6);
+        doc.setDrawColor(238, 238, 238);
+        doc.rect(marginX, y, tableWidth, rowH);
+        doc.setTextColor(40, 40, 40);
+        doc.text(String(p.qty), cols.cant, y + 4.7);
+        doc.text(nameLines, cols.prod, y + 4.7);
+        doc.text(detLines, cols.det, y + 4.7);
+        doc.text(p.width || "—", cols.ancho, y + 4.7);
+        doc.text(p.height || "—", cols.alto, y + 4.7);
+        doc.text(formatCurrency(p.price), cols.precio, y + 4.7, { align: "right" });
+        y += rowH;
+      });
+
+      y += 8;
+      const totalsW = 65;
+      const totalsX = pageWidth - marginX - totalsW;
+      const totalsRows = [["Sub-total", totals.subtotal]];
+      if (taxToggle.checked) totalsRows.push(["ITBMS", totals.tax]);
+      totalsRows.push(["TOTAL", totals.total]);
+      totalsRows.forEach(([label, val]) => {
+        const isTotal = label === "TOTAL";
+        doc.setFillColor(isTotal ? 212 : 240, isTotal ? 85 : 99, isTotal ? 26 : 31);
+        doc.rect(totalsX, y, totalsW, 6.5, "F");
+        doc.setTextColor(255, 255, 255);
+        doc.setFont("helvetica", isTotal ? "bold" : "normal");
+        doc.setFontSize(isTotal ? 9 : 8);
+        doc.text(label, totalsX + 3, y + 4.4);
+        doc.text(formatCurrency(val), totalsX + totalsW - 3, y + 4.4, { align: "right" });
+        y += 6.5;
+      });
+
+      y += 10;
+      doc.setTextColor(25, 25, 25);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(8);
+      doc.text("TIEMPO DE ENTREGA E INSTALACIÓN:", marginX, y);
+      doc.setFont("helvetica", "normal");
+      doc.text(TERMS.delivery, marginX, y + 4.5);
+      y += 11;
+
+      doc.setFont("helvetica", "bold");
+      doc.text("DETALLES GENERALES:", marginX, y);
+      doc.setFont("helvetica", "normal");
+      TERMS.general.forEach((line, i) => doc.text(`- ${line}`, marginX, y + 4.5 + i * 4.2));
+      y += 5 + TERMS.general.length * 4.2;
+
+      doc.setFont("helvetica", "bold");
+      doc.text("GARANTÍA DE:", marginX, y);
+      doc.setFont("helvetica", "normal");
+      doc.text(TERMS.warranty, marginX, y + 4.5);
+      y += 16;
+
+      const sigW = (pageWidth - marginX * 2 - 16) / 2;
+      doc.setDrawColor(200, 200, 200);
+      doc.line(marginX, y, marginX + sigW, y);
+      doc.line(pageWidth - marginX - sigW, y, pageWidth - marginX, y);
+      y += 5;
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(8);
+      doc.setTextColor(25, 25, 25);
+      doc.text(COMPANY.preparedBy.toUpperCase(), marginX + sigW / 2, y, { align: "center" });
+      doc.text(fields.name.toUpperCase(), pageWidth - marginX - sigW / 2, y, { align: "center" });
+      y += 4;
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(7);
+      doc.setTextColor(130, 130, 130);
+      doc.text("ENCARGADO", marginX + sigW / 2, y, { align: "center" });
+      doc.text("ACEPTANDO CONTRATO", pageWidth - marginX - sigW / 2, y, { align: "center" });
+
+      y += 10;
+      doc.setFont("helvetica", "italic");
+      doc.setFontSize(7.5);
+      doc.setTextColor(150, 150, 150);
+      doc.text("Precio válido por 30 días", pageWidth / 2, y, { align: "center" });
+
+      return doc;
+    }
+
+    function slug(str) {
+      return (
+        str.trim().toLowerCase()
+          .normalize("NFD").replace(/[̀-ͯ]/g, "")
+          .replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")
+      ) || "cotizacion";
+    }
+
+    let toastTimer = null;
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("visible");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("visible"), 3200);
+    }
+
+    let previewFields = null;
+    let previewTotals = null;
+
+    function openVistaPrevia() {
+      const data = validateNuevaForm();
+      if (!data) return;
+      previewFields = docFieldsFromForm(data);
+      previewTotals = computeTotals(data.validProducts);
+      renderDocPage(previewFields, previewTotals);
+      switchView("preview");
+    }
+
+    document.getElementById("preview-btn").addEventListener("click", openVistaPrevia);
+    document.getElementById("preview-back-btn").addEventListener("click", () => switchView("nueva"));
+
+    document.getElementById("pdf-btn").addEventListener("click", () => {
+      persistQuote({ name: previewFields.name, validProducts: previewFields.products }, previewTotals, "pendiente");
+      const doc = buildQuotePdf(previewFields, previewTotals);
+      doc.save(`cotizacion-${slug(previewFields.name)}.pdf`);
+      showToast("PDF descargado");
+    });
+
+    async function shareToWhatsApp() {
+      persistQuote({ name: previewFields.name, validProducts: previewFields.products }, previewTotals, "enviada");
+      const doc = buildQuotePdf(previewFields, previewTotals);
+      const filename = `cotizacion-${slug(previewFields.name)}.pdf`;
+      const text = `Cotización para ${previewFields.name} — Total ${formatCurrency(previewTotals.total)}`;
+
+      const blob = doc.output("blob");
+      const file = new File([blob], filename, { type: "application/pdf" });
+
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        try {
+          await navigator.share({ files: [file], text, title: "Cotización" });
+          return;
+        } catch (err) {
+          if (err.name === "AbortError") return;
+        }
+      }
+
+      doc.save(filename);
+      window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
+      showToast("PDF descargado. Adjúntalo manualmente en WhatsApp.");
+    }
+
+    document.getElementById("whatsapp-btn").addEventListener("click", shareToWhatsApp);
+    document.getElementById("preview-share-btn").addEventListener("click", shareToWhatsApp);
 
     // ---------- Init ----------
     renderRecientes();

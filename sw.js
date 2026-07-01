@@ -1,4 +1,4 @@
-const CACHE_NAME = "viexsa-v1";
+const CACHE_NAME = "viexsa-v2";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -7,6 +7,7 @@ const APP_SHELL = [
   "./icons/icon-512.png",
   "./icons/icon-512-maskable.png",
   "./icons/apple-touch-icon.png",
+  "./vendor/jspdf.umd.min.js",
 ];
 
 self.addEventListener("install", (event) => {
