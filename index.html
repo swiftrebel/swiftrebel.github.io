@@ -224,10 +224,6 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   }
 
-  .quote-item[hidden] {
-    display: none;
-  }
-
   .avatar {
     width: 40px;
     height: 40px;
@@ -301,6 +297,10 @@
     border-top: 1px solid #e6e3e0;
   }
 
+  .tab-bar.hidden {
+    display: none;
+  }
+
   .tab {
     display: flex;
     flex-direction: column;
@@ -322,6 +322,7 @@
     display: none;
     flex-direction: column;
     flex: 1;
+    min-height: 0;
   }
 
   .view.active {
@@ -460,6 +461,363 @@
     color: var(--text-muted);
     font-size: 14px;
   }
+
+  /* --- Nueva cotización modal header --- */
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: calc(env(safe-area-inset-top, 0px) + 14px) 16px 14px;
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    gap: 8px;
+  }
+
+  .text-btn {
+    background: none;
+    border: none;
+    color: var(--orange);
+    font-size: 15px;
+    font-weight: 600;
+    padding: 4px 2px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .modal-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-dark);
+    flex: 1;
+    text-align: center;
+  }
+
+  /* --- Form --- */
+  .form-scroll {
+    flex: 1;
+    padding: 4px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .form-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .form-card {
+    background: var(--card-bg);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  .form-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    border-bottom: 1px solid #f0efed;
+    gap: 12px;
+  }
+
+  .form-row:last-child {
+    border-bottom: none;
+  }
+
+  .form-row label {
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .form-row input {
+    flex: 1;
+    border: none;
+    background: none;
+    text-align: right;
+    font-size: 14px;
+    color: var(--text-dark);
+    font-family: inherit;
+    font-weight: 500;
+    min-width: 0;
+  }
+
+  .form-row input:focus {
+    outline: none;
+  }
+
+  .form-row input.input-error,
+  .product-name-input.input-error {
+    outline: 2px solid #e0483a;
+    outline-offset: -1px;
+    border-radius: 8px;
+  }
+
+  .form-row input::placeholder,
+  .product-name-input::placeholder,
+  .product-desc-input::placeholder,
+  .product-price-input::placeholder {
+    color: #c7c4c1;
+    font-weight: 400;
+  }
+
+  /* --- Product cards --- */
+  .product-card {
+    position: relative;
+    background: var(--card-bg);
+    border-radius: 14px;
+    padding: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    margin-bottom: 10px;
+  }
+
+  .product-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .product-name-input {
+    flex: 1;
+    border: none;
+    background: none;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-dark);
+    font-family: inherit;
+    min-width: 0;
+  }
+
+  .product-price-input {
+    width: 90px;
+    border: none;
+    background: none;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-dark);
+    text-align: right;
+    font-family: inherit;
+  }
+
+  .product-desc-input {
+    width: 100%;
+    border: none;
+    background: none;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: inherit;
+    margin-top: 2px;
+    padding: 0;
+  }
+
+  .product-name-input:focus,
+  .product-price-input:focus,
+  .product-desc-input:focus {
+    outline: none;
+  }
+
+  .product-dims {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .dim-box {
+    flex: 1;
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 6px 10px;
+  }
+
+  .dim-box label {
+    display: block;
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+  }
+
+  .dim-box input {
+    width: 100%;
+    border: none;
+    background: none;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dark);
+    font-family: inherit;
+    padding: 0;
+  }
+
+  .dim-box input:focus {
+    outline: none;
+  }
+
+  .remove-product {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: none;
+    background: var(--bg);
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .add-product-btn {
+    width: 100%;
+    border: none;
+    background: #fdece1;
+    color: var(--orange);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  /* --- Toggle switch --- */
+  .switch-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--card-bg);
+    border-radius: 14px;
+    padding: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  .switch-row span {
+    font-size: 14px;
+    color: var(--text-dark);
+    font-weight: 500;
+  }
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 46px;
+    height: 26px;
+    flex-shrink: 0;
+  }
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+  }
+
+  .switch .track {
+    position: absolute;
+    inset: 0;
+    background: #dcdad7;
+    border-radius: 999px;
+    transition: background .2s;
+    cursor: pointer;
+  }
+
+  .switch .track::before {
+    content: "";
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    top: 3px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform .2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,.25);
+  }
+
+  .switch input:checked + .track {
+    background: var(--green);
+  }
+
+  .switch input:checked + .track::before {
+    transform: translateX(20px);
+  }
+
+  /* --- Totals --- */
+  .totals-card {
+    background: var(--card-bg);
+    border-radius: 14px;
+    padding: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  .totals-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--text-muted);
+    padding: 4px 0;
+  }
+
+  .totals-row .value {
+    color: var(--text-dark);
+    font-weight: 600;
+  }
+
+  .totals-row.total {
+    border-top: 1px solid #f0efed;
+    margin-top: 6px;
+    padding-top: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+
+  .totals-row.total .value {
+    color: var(--orange);
+    font-size: 18px;
+  }
+
+  .bottom-cta-wrap {
+    position: sticky;
+    bottom: 0;
+    padding: 10px 20px calc(env(safe-area-inset-bottom, 0px) + 12px);
+    background: var(--bg);
+    border-top: 1px solid #e6e3e0;
+  }
+
+  .preview-btn {
+    width: 100%;
+    background: #16161a;
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+
+  .preview-btn:active {
+    opacity: 0.85;
+  }
 </style>
 </head>
 <body>
@@ -487,20 +845,20 @@
 
       <div class="summary-card">
         <div class="summary-label">Cotizado en junio</div>
-        <div class="summary-amount">$18,430<span class="cents">.00</span></div>
+        <div class="summary-amount" id="summary-amount">$0<span class="cents">.00</span></div>
         <div class="summary-stats">
           <div class="stat-box">
-            <div class="stat-value">12</div>
+            <div class="stat-value" id="stat-total">0</div>
             <div class="stat-label">Cotizaciones</div>
           </div>
           <div class="stat-box">
-            <div class="stat-value">3</div>
+            <div class="stat-value" id="stat-pending">0</div>
             <div class="stat-label">Pendientes</div>
           </div>
         </div>
       </div>
 
-      <button class="new-quote-btn">
+      <button class="new-quote-btn" id="new-quote-btn-inicio">
         <span>+</span> Nueva cotización
       </button>
 
@@ -509,50 +867,14 @@
         <button class="section-link" data-goto="cotizaciones">Ver todas</button>
       </div>
 
-      <div class="quote-list">
-        <div class="quote-item">
-          <div class="avatar enviada">MS</div>
-          <div class="quote-info">
-            <div class="quote-name">Madelaine de Sosa</div>
-            <div class="quote-desc">Vidrios de mesa</div>
-          </div>
-          <div class="quote-meta">
-            <div class="quote-price">$2,632.20</div>
-            <div class="quote-status enviada">Enviada</div>
-          </div>
-        </div>
-
-        <div class="quote-item">
-          <div class="avatar aceptada">CR</div>
-          <div class="quote-info">
-            <div class="quote-name">Comercial El Roble</div>
-            <div class="quote-desc">Ventana corrediza</div>
-          </div>
-          <div class="quote-meta">
-            <div class="quote-price">$1,845.00</div>
-            <div class="quote-status aceptada">Aceptada</div>
-          </div>
-        </div>
-
-        <div class="quote-item">
-          <div class="avatar pendiente">RH</div>
-          <div class="quote-info">
-            <div class="quote-name">Roberto Him</div>
-            <div class="quote-desc">Puerta de baño templada</div>
-          </div>
-          <div class="quote-meta">
-            <div class="quote-price">$980.50</div>
-            <div class="quote-status pendiente">Pendiente</div>
-          </div>
-        </div>
-      </div>
+      <div class="quote-list" id="recientes-list"></div>
     </div>
   </section>
 
   <section class="view" id="view-cotizaciones">
     <header class="list-header">
       <div class="list-title">Cotizaciones</div>
-      <button class="add-btn" aria-label="Nueva cotización">+</button>
+      <button class="add-btn" id="add-btn-cotizaciones" aria-label="Nueva cotización">+</button>
     </header>
 
     <div class="search-box">
@@ -571,68 +893,7 @@
     </div>
 
     <div class="list-content">
-      <div class="quote-list" id="quote-list">
-        <div class="quote-item" data-status="enviada" data-search="madelaine de sosa vidrios de mesa">
-          <div class="avatar enviada">MS</div>
-          <div class="quote-info">
-            <div class="quote-name">Madelaine de Sosa</div>
-            <div class="quote-desc">Vidrios de mesa · 11 Jun 2026</div>
-          </div>
-          <div class="quote-meta">
-            <div class="quote-price">$2,632.20</div>
-            <div class="quote-status enviada">Enviada</div>
-          </div>
-        </div>
-
-        <div class="quote-item" data-status="aceptada" data-search="comercial el roble ventana corrediza">
-          <div class="avatar aceptada">CR</div>
-          <div class="quote-info">
-            <div class="quote-name">Comercial El Roble</div>
-            <div class="quote-desc">Ventana corrediza · 9 Jun 2026</div>
-          </div>
-          <div class="quote-meta">
-            <div class="quote-price">$1,845.00</div>
-            <div class="quote-status aceptada">Aceptada</div>
-          </div>
-        </div>
-
-        <div class="quote-item" data-status="pendiente" data-search="roberto him puerta de baño templada">
-          <div class="avatar pendiente">RH</div>
-          <div class="quote-info">
-            <div class="quote-name">Roberto Him</div>
-            <div class="quote-desc">Puerta de baño templada · 5 Jun 2026</div>
-          </div>
-          <div class="quote-meta">
-            <div class="quote-price">$980.50</div>
-            <div class="quote-status pendiente">Pendiente</div>
-          </div>
-        </div>
-
-        <div class="quote-item" data-status="aceptada" data-search="farmacia arrocha vitrina de vidrio">
-          <div class="avatar aceptada">FA</div>
-          <div class="quote-info">
-            <div class="quote-name">Farmacia Arrocha</div>
-            <div class="quote-desc">Vitrina de vidrio · 2 Jun 2026</div>
-          </div>
-          <div class="quote-meta">
-            <div class="quote-price">$4,210.00</div>
-            <div class="quote-status aceptada">Aceptada</div>
-          </div>
-        </div>
-
-        <div class="quote-item" data-status="enviada" data-search="ana castillo espejo con luz led">
-          <div class="avatar enviada">AC</div>
-          <div class="quote-info">
-            <div class="quote-name">Ana Castillo</div>
-            <div class="quote-desc">Espejo con luz LED · 28 May 2026</div>
-          </div>
-          <div class="quote-meta">
-            <div class="quote-price">$560.00</div>
-            <div class="quote-status enviada">Enviada</div>
-          </div>
-        </div>
-      </div>
-
+      <div class="quote-list" id="quote-list"></div>
       <div class="empty-state" id="empty-state" hidden>No se encontraron cotizaciones.</div>
     </div>
   </section>
@@ -646,7 +907,79 @@
     </div>
   </section>
 
-  <nav class="tab-bar">
+  <section class="view" id="view-nueva">
+    <header class="modal-header">
+      <button class="text-btn" id="cancel-btn">Cancelar</button>
+      <div class="modal-title">Nueva cotización</div>
+      <button class="text-btn" id="save-btn">Guardar</button>
+    </header>
+
+    <div class="form-scroll">
+      <div>
+        <div class="form-section-label">Cliente</div>
+        <div class="form-card">
+          <div class="form-row">
+            <label for="client-name">Nombre</label>
+            <input type="text" id="client-name" placeholder="Nombre del cliente">
+          </div>
+          <div class="form-row">
+            <label for="client-address">Dirección</label>
+            <input type="text" id="client-address" placeholder="Dirección">
+          </div>
+          <div class="form-row">
+            <label for="client-product">Producto</label>
+            <input type="text" id="client-product" placeholder="Resumen del producto">
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="form-section-label">Productos</div>
+        <div id="products-container"></div>
+        <button type="button" class="add-product-btn" id="add-product-btn">
+          <span>+</span> Agregar producto
+        </button>
+      </div>
+
+      <div>
+        <div class="form-section-label">Impuesto</div>
+        <div class="switch-row">
+          <span>Aplicar ITBMS (7%)</span>
+          <label class="switch">
+            <input type="checkbox" id="tax-toggle" checked>
+            <span class="track"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="totals-card">
+        <div class="totals-row">
+          <span>Subtotal</span>
+          <span class="value" id="totals-subtotal">$0.00</span>
+        </div>
+        <div class="totals-row" id="totals-tax-row">
+          <span>ITBMS (7%)</span>
+          <span class="value" id="totals-tax">$0.00</span>
+        </div>
+        <div class="totals-row total">
+          <span>Total</span>
+          <span class="value" id="totals-total">$0.00</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-cta-wrap">
+      <button class="preview-btn" id="preview-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path d="M6 3h9l4 4v14a1 1 0 01-1 1H6a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M9 12h7M9 16h7M9 8h3" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        Ver vista previa
+      </button>
+    </div>
+  </section>
+
+  <nav class="tab-bar" id="tab-bar">
     <button class="tab active" data-view="inicio">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
         <path d="M3 11l9-8 9 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -677,12 +1010,16 @@
       });
     }
 
+    // ---------- Navigation ----------
     const tabs = document.querySelectorAll(".tab");
     const views = document.querySelectorAll(".view");
+    const tabBar = document.getElementById("tab-bar");
+    let returnView = "inicio";
 
     function switchView(name) {
       views.forEach((view) => view.classList.toggle("active", view.id === "view-" + name));
       tabs.forEach((tab) => tab.classList.toggle("active", tab.dataset.view === name));
+      tabBar.classList.toggle("hidden", name === "nueva");
     }
 
     tabs.forEach((tab) => tab.addEventListener("click", () => switchView(tab.dataset.view)));
@@ -691,25 +1028,85 @@
       el.addEventListener("click", () => switchView(el.dataset.goto));
     });
 
+    // ---------- Helpers ----------
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"']/g, (c) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+      }[c]));
+    }
+
+    function formatMoney(n) {
+      return n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    const STATUS_LABELS = { enviada: "Enviada", aceptada: "Aceptada", pendiente: "Pendiente" };
+    const MONTHS_ES = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+
+    function formatDateLabel(date) {
+      return `${date.getDate()} ${MONTHS_ES[date.getMonth()]} ${date.getFullYear()}`;
+    }
+
+    function initialsFrom(name) {
+      const parts = name.trim().split(/\s+/).filter(Boolean);
+      if (parts.length === 0) return "?";
+      if (parts.length === 1) return parts[0][0].toUpperCase();
+      return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    }
+
+    // ---------- Quotes data ----------
+    let quotes = [
+      { name: "Madelaine de Sosa", desc: "Vidrios de mesa", dateLabel: "11 Jun 2026", amount: 2632.20, status: "enviada" },
+      { name: "Comercial El Roble", desc: "Ventana corrediza", dateLabel: "9 Jun 2026", amount: 1845.00, status: "aceptada" },
+      { name: "Roberto Him", desc: "Puerta de baño templada", dateLabel: "5 Jun 2026", amount: 980.50, status: "pendiente" },
+      { name: "Farmacia Arrocha", desc: "Vitrina de vidrio", dateLabel: "2 Jun 2026", amount: 4210.00, status: "aceptada" },
+      { name: "Ana Castillo", desc: "Espejo con luz LED", dateLabel: "28 May 2026", amount: 560.00, status: "enviada" },
+    ];
+
+    function quoteItemHtml(q, showDate) {
+      const initials = initialsFrom(q.name);
+      const desc = showDate ? `${q.desc} · ${q.dateLabel}` : q.desc;
+      return `
+        <div class="quote-item">
+          <div class="avatar ${q.status}">${escapeHtml(initials)}</div>
+          <div class="quote-info">
+            <div class="quote-name">${escapeHtml(q.name)}</div>
+            <div class="quote-desc">${escapeHtml(desc)}</div>
+          </div>
+          <div class="quote-meta">
+            <div class="quote-price">$${formatMoney(q.amount)}</div>
+            <div class="quote-status ${q.status}">${STATUS_LABELS[q.status]}</div>
+          </div>
+        </div>`;
+    }
+
+    function renderRecientes() {
+      document.getElementById("recientes-list").innerHTML =
+        quotes.slice(0, 3).map((q) => quoteItemHtml(q, false)).join("");
+    }
+
+    function renderStats() {
+      const total = quotes.reduce((sum, q) => sum + q.amount, 0);
+      const [whole, cents] = formatMoney(total).split(".");
+      document.getElementById("summary-amount").innerHTML = `$${whole}<span class="cents">.${cents}</span>`;
+      document.getElementById("stat-total").textContent = quotes.length;
+      document.getElementById("stat-pending").textContent = quotes.filter((q) => q.status === "pendiente").length;
+    }
+
+    // ---------- Cotizaciones list (search + filters) ----------
     const searchInput = document.getElementById("search-input");
     const pills = document.querySelectorAll(".pill");
-    const quoteItems = document.querySelectorAll("#quote-list .quote-item");
     const emptyState = document.getElementById("empty-state");
     let activeFilter = "todas";
 
-    function applyFilters() {
+    function renderQuoteList() {
       const term = searchInput.value.trim().toLowerCase();
-      let visibleCount = 0;
-
-      quoteItems.forEach((item) => {
-        const matchesFilter = activeFilter === "todas" || item.dataset.status === activeFilter;
-        const matchesSearch = !term || item.dataset.search.includes(term);
-        const visible = matchesFilter && matchesSearch;
-        item.hidden = !visible;
-        if (visible) visibleCount++;
+      const filtered = quotes.filter((q) => {
+        const matchesFilter = activeFilter === "todas" || q.status === activeFilter;
+        const matchesSearch = !term || `${q.name} ${q.desc}`.toLowerCase().includes(term);
+        return matchesFilter && matchesSearch;
       });
-
-      emptyState.hidden = visibleCount > 0;
+      document.getElementById("quote-list").innerHTML = filtered.map((q) => quoteItemHtml(q, true)).join("");
+      emptyState.hidden = filtered.length > 0;
     }
 
     pills.forEach((pill) => {
@@ -717,11 +1114,150 @@
         pills.forEach((p) => p.classList.remove("active"));
         pill.classList.add("active");
         activeFilter = pill.dataset.filter;
-        applyFilters();
+        renderQuoteList();
       });
     });
 
-    searchInput.addEventListener("input", applyFilters);
+    searchInput.addEventListener("input", renderQuoteList);
+
+    // ---------- Nueva cotización form ----------
+    const clientNameInput = document.getElementById("client-name");
+    const clientAddressInput = document.getElementById("client-address");
+    const clientProductInput = document.getElementById("client-product");
+    const productsContainer = document.getElementById("products-container");
+    const taxToggle = document.getElementById("tax-toggle");
+    const totalsTaxRow = document.getElementById("totals-tax-row");
+
+    let formProducts = [];
+
+    function blankProduct() {
+      return { name: "", desc: "", qty: 1, width: "", height: "", price: 0 };
+    }
+
+    function renderProducts() {
+      productsContainer.innerHTML = formProducts.map((p, i) => `
+        <div class="product-card">
+          ${formProducts.length > 1 ? `<button type="button" class="remove-product" data-action="remove-product" data-index="${i}" aria-label="Quitar producto">×</button>` : ""}
+          <div class="product-card-top">
+            <input class="product-name-input" data-field="name" data-index="${i}" type="text" placeholder="Nombre del producto" value="${escapeHtml(p.name)}">
+            <input class="product-price-input" data-field="price" data-index="${i}" type="number" inputmode="decimal" placeholder="$0.00" value="${p.price ? p.price : ""}">
+          </div>
+          <input class="product-desc-input" data-field="desc" data-index="${i}" type="text" placeholder="Descripción (ej. 6mm pintado en gris)" value="${escapeHtml(p.desc)}">
+          <div class="product-dims">
+            <div class="dim-box">
+              <label>Cant.</label>
+              <input data-field="qty" data-index="${i}" type="number" min="1" value="${p.qty}">
+            </div>
+            <div class="dim-box">
+              <label>Ancho</label>
+              <input data-field="width" data-index="${i}" type="text" placeholder="mm" value="${escapeHtml(p.width)}">
+            </div>
+            <div class="dim-box">
+              <label>Alto</label>
+              <input data-field="height" data-index="${i}" type="text" placeholder="mm" value="${escapeHtml(p.height)}">
+            </div>
+          </div>
+        </div>`).join("");
+    }
+
+    productsContainer.addEventListener("input", (e) => {
+      const idx = e.target.dataset.index;
+      const field = e.target.dataset.field;
+      if (idx === undefined || !field) return;
+      const p = formProducts[idx];
+      if (field === "price") p.price = parseFloat(e.target.value) || 0;
+      else if (field === "qty") p.qty = parseInt(e.target.value, 10) || 1;
+      else p[field] = e.target.value;
+      if (field === "name") e.target.classList.remove("input-error");
+      if (field === "price") recalcTotals();
+    });
+
+    productsContainer.addEventListener("click", (e) => {
+      const btn = e.target.closest('[data-action="remove-product"]');
+      if (!btn) return;
+      formProducts.splice(Number(btn.dataset.index), 1);
+      renderProducts();
+      recalcTotals();
+    });
+
+    document.getElementById("add-product-btn").addEventListener("click", () => {
+      formProducts.push(blankProduct());
+      renderProducts();
+    });
+
+    taxToggle.addEventListener("change", recalcTotals);
+
+    function recalcTotals() {
+      const subtotal = formProducts.reduce((sum, p) => sum + (p.price || 0), 0);
+      const tax = taxToggle.checked ? subtotal * 0.07 : 0;
+      const total = subtotal + tax;
+      document.getElementById("totals-subtotal").textContent = `$${formatMoney(subtotal)}`;
+      document.getElementById("totals-tax").textContent = `$${formatMoney(tax)}`;
+      document.getElementById("totals-total").textContent = `$${formatMoney(total)}`;
+      totalsTaxRow.hidden = !taxToggle.checked;
+    }
+
+    function resetForm() {
+      clientNameInput.value = "";
+      clientAddressInput.value = "";
+      clientProductInput.value = "";
+      clientNameInput.classList.remove("input-error");
+      formProducts = [blankProduct()];
+      taxToggle.checked = true;
+      renderProducts();
+      recalcTotals();
+    }
+
+    function openNuevaCotizacion(fromView) {
+      returnView = fromView;
+      resetForm();
+      switchView("nueva");
+    }
+
+    document.getElementById("new-quote-btn-inicio").addEventListener("click", () => openNuevaCotizacion("inicio"));
+    document.getElementById("add-btn-cotizaciones").addEventListener("click", () => openNuevaCotizacion("cotizaciones"));
+
+    document.getElementById("cancel-btn").addEventListener("click", () => switchView(returnView));
+
+    function saveQuote() {
+      const name = clientNameInput.value.trim();
+      const validProducts = formProducts.filter((p) => p.name.trim() && p.price > 0);
+
+      let hasError = false;
+      if (!name) {
+        clientNameInput.classList.add("input-error");
+        hasError = true;
+      }
+      if (validProducts.length === 0) {
+        document.querySelectorAll(".product-name-input").forEach((el) => el.classList.add("input-error"));
+        hasError = true;
+      }
+      if (hasError) return;
+
+      const subtotal = validProducts.reduce((sum, p) => sum + p.price, 0);
+      const tax = taxToggle.checked ? subtotal * 0.07 : 0;
+
+      quotes.unshift({
+        name,
+        desc: validProducts.map((p) => p.name.trim()).join(", "),
+        dateLabel: formatDateLabel(new Date()),
+        amount: subtotal + tax,
+        status: "pendiente",
+      });
+
+      renderRecientes();
+      renderQuoteList();
+      renderStats();
+      switchView("cotizaciones");
+    }
+
+    document.getElementById("save-btn").addEventListener("click", saveQuote);
+    document.getElementById("preview-btn").addEventListener("click", saveQuote);
+
+    // ---------- Init ----------
+    renderRecientes();
+    renderQuoteList();
+    renderStats();
   </script>
 
 </body>
