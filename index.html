@@ -519,6 +519,11 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   }
 
+  .form-card.input-error {
+    outline: 2px solid #e0483a;
+    outline-offset: -1px;
+  }
+
   .form-row {
     display: flex;
     align-items: center;
@@ -554,118 +559,101 @@
     outline: none;
   }
 
-  .form-row input.input-error,
-  .product-name-input.input-error {
+  .form-row input.input-error {
     outline: 2px solid #e0483a;
     outline-offset: -1px;
     border-radius: 8px;
   }
 
-  .form-row input::placeholder,
-  .product-name-input::placeholder,
-  .product-desc-input::placeholder,
-  .product-price-input::placeholder {
+  .form-row input::placeholder {
     color: #c7c4c1;
     font-weight: 400;
   }
 
-  /* --- Product cards --- */
-  .product-card {
-    position: relative;
-    background: var(--card-bg);
-    border-radius: 14px;
-    padding: 14px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    margin-bottom: 10px;
-  }
-
-  .product-card-top {
+  .price-field {
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 10px;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    flex: 1;
+    min-width: 0;
   }
 
-  .product-name-input {
+  .price-field span {
+    font-size: 14px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .price-field input {
     flex: 1;
     border: none;
     background: none;
+    text-align: right;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 500;
     color: var(--text-dark);
     font-family: inherit;
     min-width: 0;
   }
 
-  .product-price-input {
-    width: 90px;
-    border: none;
-    background: none;
+  .price-field input:focus {
+    outline: none;
+  }
+
+  .price-field input.input-error {
+    outline: 2px solid #e0483a;
+    outline-offset: -1px;
+    border-radius: 8px;
+  }
+
+  /* --- Product summary rows (Nueva cotización) --- */
+  .product-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    border-bottom: 1px solid #f0efed;
+    gap: 10px;
+    cursor: pointer;
+  }
+
+  .product-row:last-child {
+    border-bottom: none;
+  }
+
+  .product-row-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .product-row-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .product-row-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .product-row-price {
     font-size: 14px;
     font-weight: 700;
     color: var(--text-dark);
-    text-align: right;
-    font-family: inherit;
+    flex-shrink: 0;
   }
 
-  .product-desc-input {
-    width: 100%;
-    border: none;
-    background: none;
-    font-size: 12px;
-    color: var(--text-muted);
-    font-family: inherit;
-    margin-top: 2px;
-    padding: 0;
-  }
-
-  .product-name-input:focus,
-  .product-price-input:focus,
-  .product-desc-input:focus {
-    outline: none;
-  }
-
-  .product-dims {
-    display: flex;
-    gap: 8px;
-    margin-top: 10px;
-  }
-
-  .dim-box {
-    flex: 1;
-    background: var(--bg);
-    border-radius: 10px;
-    padding: 6px 10px;
-  }
-
-  .dim-box label {
-    display: block;
-    font-size: 10px;
-    color: var(--text-muted);
-    margin-bottom: 2px;
-  }
-
-  .dim-box input {
-    width: 100%;
-    border: none;
-    background: none;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-dark);
-    font-family: inherit;
-    padding: 0;
-  }
-
-  .dim-box input:focus {
-    outline: none;
-  }
-
-  .remove-product {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 22px;
-    height: 22px;
+  .product-row-remove {
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     border: none;
     background: var(--bg);
@@ -676,10 +664,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .products-empty {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 18px;
   }
 
   .add-product-btn {
     width: 100%;
+    margin-top: 10px;
     border: none;
     background: #fdece1;
     color: var(--orange);
@@ -845,7 +842,7 @@
 
       <div class="summary-card">
         <div class="summary-label">Cotizado en junio</div>
-        <div class="summary-amount" id="summary-amount">$0<span class="cents">.00</span></div>
+        <div class="summary-amount" id="summary-amount">B/. 0<span class="cents">.00</span></div>
         <div class="summary-stats">
           <div class="stat-box">
             <div class="stat-value" id="stat-total">0</div>
@@ -935,7 +932,7 @@
 
       <div>
         <div class="form-section-label">Productos</div>
-        <div id="products-container"></div>
+        <div class="form-card" id="products-container"></div>
         <button type="button" class="add-product-btn" id="add-product-btn">
           <span>+</span> Agregar producto
         </button>
@@ -955,15 +952,15 @@
       <div class="totals-card">
         <div class="totals-row">
           <span>Subtotal</span>
-          <span class="value" id="totals-subtotal">$0.00</span>
+          <span class="value" id="totals-subtotal">B/. 0.00</span>
         </div>
         <div class="totals-row" id="totals-tax-row">
           <span>ITBMS (7%)</span>
-          <span class="value" id="totals-tax">$0.00</span>
+          <span class="value" id="totals-tax">B/. 0.00</span>
         </div>
         <div class="totals-row total">
           <span>Total</span>
-          <span class="value" id="totals-total">$0.00</span>
+          <span class="value" id="totals-total">B/. 0.00</span>
         </div>
       </div>
     </div>
@@ -976,6 +973,59 @@
         </svg>
         Ver vista previa
       </button>
+    </div>
+  </section>
+
+  <section class="view" id="view-agregar-producto">
+    <header class="modal-header">
+      <button class="text-btn" id="ap-cancel-btn">Cancelar</button>
+      <div class="modal-title">Agregar producto</div>
+      <button class="text-btn" id="ap-save-btn">Agregar</button>
+    </header>
+
+    <div class="form-scroll">
+      <div>
+        <div class="form-section-label">Producto</div>
+        <div class="form-card">
+          <div class="form-row">
+            <input type="text" id="ap-name" placeholder="Nombre del producto" style="text-align: left;">
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="form-section-label">Detalles</div>
+        <div class="form-card">
+          <div class="form-row">
+            <input type="text" id="ap-desc" placeholder="Ej. 6mm pintados en gris según muestra" style="text-align: left;">
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="form-section-label">Medidas y precio</div>
+        <div class="form-card">
+          <div class="form-row">
+            <label for="ap-qty">Cantidad</label>
+            <input type="number" id="ap-qty" min="1" value="1">
+          </div>
+          <div class="form-row">
+            <label for="ap-width">Ancho</label>
+            <input type="text" id="ap-width" placeholder="mm">
+          </div>
+          <div class="form-row">
+            <label for="ap-height">Alto</label>
+            <input type="text" id="ap-height" placeholder="mm">
+          </div>
+          <div class="form-row">
+            <label for="ap-price">Precio</label>
+            <div class="price-field">
+              <span>B/.</span>
+              <input type="number" inputmode="decimal" id="ap-price" placeholder="0.00">
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1016,10 +1066,12 @@
     const tabBar = document.getElementById("tab-bar");
     let returnView = "inicio";
 
+    const TAB_VIEWS = ["inicio", "cotizaciones", "empresa"];
+
     function switchView(name) {
       views.forEach((view) => view.classList.toggle("active", view.id === "view-" + name));
       tabs.forEach((tab) => tab.classList.toggle("active", tab.dataset.view === name));
-      tabBar.classList.toggle("hidden", name === "nueva");
+      tabBar.classList.toggle("hidden", !TAB_VIEWS.includes(name));
     }
 
     tabs.forEach((tab) => tab.addEventListener("click", () => switchView(tab.dataset.view)));
@@ -1037,6 +1089,10 @@
 
     function formatMoney(n) {
       return n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function formatCurrency(n) {
+      return `B/. ${formatMoney(n)}`;
     }
 
     const STATUS_LABELS = { enviada: "Enviada", aceptada: "Aceptada", pendiente: "Pendiente" };
@@ -1073,7 +1129,7 @@
             <div class="quote-desc">${escapeHtml(desc)}</div>
           </div>
           <div class="quote-meta">
-            <div class="quote-price">$${formatMoney(q.amount)}</div>
+            <div class="quote-price">${formatCurrency(q.amount)}</div>
             <div class="quote-status ${q.status}">${STATUS_LABELS[q.status]}</div>
           </div>
         </div>`;
@@ -1087,7 +1143,7 @@
     function renderStats() {
       const total = quotes.reduce((sum, q) => sum + q.amount, 0);
       const [whole, cents] = formatMoney(total).split(".");
-      document.getElementById("summary-amount").innerHTML = `$${whole}<span class="cents">.${cents}</span>`;
+      document.getElementById("summary-amount").innerHTML = `B/. ${whole}<span class="cents">.${cents}</span>`;
       document.getElementById("stat-total").textContent = quotes.length;
       document.getElementById("stat-pending").textContent = quotes.filter((q) => q.status === "pendiente").length;
     }
@@ -1134,55 +1190,98 @@
       return { name: "", desc: "", qty: 1, width: "", height: "", price: 0 };
     }
 
-    function renderProducts() {
+    function productSummaryLine(p) {
+      const details = [p.desc, p.width && p.height ? `${p.width} × ${p.height}` : ""].filter(Boolean).join(" · ");
+      const qtyPrefix = p.qty > 1 ? `${p.qty} × ` : "";
+      return qtyPrefix + details;
+    }
+
+    function renderProductsSummary() {
+      if (formProducts.length === 0) {
+        productsContainer.innerHTML = `<div class="products-empty">Aún no has agregado productos.</div>`;
+        return;
+      }
       productsContainer.innerHTML = formProducts.map((p, i) => `
-        <div class="product-card">
-          ${formProducts.length > 1 ? `<button type="button" class="remove-product" data-action="remove-product" data-index="${i}" aria-label="Quitar producto">×</button>` : ""}
-          <div class="product-card-top">
-            <input class="product-name-input" data-field="name" data-index="${i}" type="text" placeholder="Nombre del producto" value="${escapeHtml(p.name)}">
-            <input class="product-price-input" data-field="price" data-index="${i}" type="number" inputmode="decimal" placeholder="$0.00" value="${p.price ? p.price : ""}">
+        <div class="product-row" data-action="edit-product" data-index="${i}">
+          <div class="product-row-info">
+            <div class="product-row-name">${escapeHtml(p.name || "Producto sin nombre")}</div>
+            <div class="product-row-desc">${escapeHtml(productSummaryLine(p))}</div>
           </div>
-          <input class="product-desc-input" data-field="desc" data-index="${i}" type="text" placeholder="Descripción (ej. 6mm pintado en gris)" value="${escapeHtml(p.desc)}">
-          <div class="product-dims">
-            <div class="dim-box">
-              <label>Cant.</label>
-              <input data-field="qty" data-index="${i}" type="number" min="1" value="${p.qty}">
-            </div>
-            <div class="dim-box">
-              <label>Ancho</label>
-              <input data-field="width" data-index="${i}" type="text" placeholder="mm" value="${escapeHtml(p.width)}">
-            </div>
-            <div class="dim-box">
-              <label>Alto</label>
-              <input data-field="height" data-index="${i}" type="text" placeholder="mm" value="${escapeHtml(p.height)}">
-            </div>
-          </div>
+          <div class="product-row-price">${formatCurrency(p.price || 0)}</div>
+          <button type="button" class="product-row-remove" data-action="remove-product" data-index="${i}" aria-label="Quitar producto">×</button>
         </div>`).join("");
     }
 
-    productsContainer.addEventListener("input", (e) => {
-      const idx = e.target.dataset.index;
-      const field = e.target.dataset.field;
-      if (idx === undefined || !field) return;
-      const p = formProducts[idx];
-      if (field === "price") p.price = parseFloat(e.target.value) || 0;
-      else if (field === "qty") p.qty = parseInt(e.target.value, 10) || 1;
-      else p[field] = e.target.value;
-      if (field === "name") e.target.classList.remove("input-error");
-      if (field === "price") recalcTotals();
-    });
-
     productsContainer.addEventListener("click", (e) => {
-      const btn = e.target.closest('[data-action="remove-product"]');
-      if (!btn) return;
-      formProducts.splice(Number(btn.dataset.index), 1);
-      renderProducts();
-      recalcTotals();
+      const removeBtn = e.target.closest('[data-action="remove-product"]');
+      if (removeBtn) {
+        formProducts.splice(Number(removeBtn.dataset.index), 1);
+        renderProductsSummary();
+        recalcTotals();
+        return;
+      }
+      const row = e.target.closest('[data-action="edit-product"]');
+      if (row) openAgregarProducto(Number(row.dataset.index));
     });
 
-    document.getElementById("add-product-btn").addEventListener("click", () => {
-      formProducts.push(blankProduct());
-      renderProducts();
+    document.getElementById("add-product-btn").addEventListener("click", () => openAgregarProducto(null));
+
+    // ---------- Agregar producto form ----------
+    const apNameInput = document.getElementById("ap-name");
+    const apDescInput = document.getElementById("ap-desc");
+    const apQtyInput = document.getElementById("ap-qty");
+    const apWidthInput = document.getElementById("ap-width");
+    const apHeightInput = document.getElementById("ap-height");
+    const apPriceInput = document.getElementById("ap-price");
+    let editingProductIndex = null;
+
+    function openAgregarProducto(index) {
+      editingProductIndex = index;
+      const p = index === null ? blankProduct() : formProducts[index];
+      apNameInput.value = p.name;
+      apDescInput.value = p.desc;
+      apQtyInput.value = p.qty;
+      apWidthInput.value = p.width;
+      apHeightInput.value = p.height;
+      apPriceInput.value = p.price || "";
+      apNameInput.classList.remove("input-error");
+      apPriceInput.classList.remove("input-error");
+      switchView("agregar-producto");
+    }
+
+    document.getElementById("ap-cancel-btn").addEventListener("click", () => switchView("nueva"));
+
+    document.getElementById("ap-save-btn").addEventListener("click", () => {
+      const name = apNameInput.value.trim();
+      const price = parseFloat(apPriceInput.value) || 0;
+
+      let hasError = false;
+      if (!name) {
+        apNameInput.classList.add("input-error");
+        hasError = true;
+      }
+      if (price <= 0) {
+        apPriceInput.classList.add("input-error");
+        hasError = true;
+      }
+      if (hasError) return;
+
+      const product = {
+        name,
+        desc: apDescInput.value.trim(),
+        qty: parseInt(apQtyInput.value, 10) || 1,
+        width: apWidthInput.value.trim(),
+        height: apHeightInput.value.trim(),
+        price,
+      };
+
+      if (editingProductIndex === null) formProducts.push(product);
+      else formProducts[editingProductIndex] = product;
+
+      productsContainer.classList.remove("input-error");
+      renderProductsSummary();
+      recalcTotals();
+      switchView("nueva");
     });
 
     taxToggle.addEventListener("change", recalcTotals);
@@ -1191,9 +1290,9 @@
       const subtotal = formProducts.reduce((sum, p) => sum + (p.price || 0), 0);
       const tax = taxToggle.checked ? subtotal * 0.07 : 0;
       const total = subtotal + tax;
-      document.getElementById("totals-subtotal").textContent = `$${formatMoney(subtotal)}`;
-      document.getElementById("totals-tax").textContent = `$${formatMoney(tax)}`;
-      document.getElementById("totals-total").textContent = `$${formatMoney(total)}`;
+      document.getElementById("totals-subtotal").textContent = formatCurrency(subtotal);
+      document.getElementById("totals-tax").textContent = formatCurrency(tax);
+      document.getElementById("totals-total").textContent = formatCurrency(total);
       totalsTaxRow.hidden = !taxToggle.checked;
     }
 
@@ -1202,9 +1301,10 @@
       clientAddressInput.value = "";
       clientProductInput.value = "";
       clientNameInput.classList.remove("input-error");
-      formProducts = [blankProduct()];
+      productsContainer.classList.remove("input-error");
+      formProducts = [];
       taxToggle.checked = true;
-      renderProducts();
+      renderProductsSummary();
       recalcTotals();
     }
 
@@ -1229,10 +1329,11 @@
         hasError = true;
       }
       if (validProducts.length === 0) {
-        document.querySelectorAll(".product-name-input").forEach((el) => el.classList.add("input-error"));
+        productsContainer.classList.add("input-error");
         hasError = true;
       }
       if (hasError) return;
+      productsContainer.classList.remove("input-error");
 
       const subtotal = validProducts.reduce((sum, p) => sum + p.price, 0);
       const tax = taxToggle.checked ? subtotal * 0.07 : 0;
