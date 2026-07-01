@@ -224,6 +224,10 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   }
 
+  .quote-item[hidden] {
+    display: none;
+  }
+
   .avatar {
     width: 40px;
     height: 40px;
@@ -237,9 +241,9 @@
     flex-shrink: 0;
   }
 
-  .avatar.a1 { background: #fbe4d8; color: #d1591f; }
-  .avatar.a2 { background: #dcf1e4; color: #1f9d55; }
-  .avatar.a3 { background: #fbe4d8; color: #d1591f; }
+  .avatar.enviada { background: #dbe9fb; color: var(--blue); }
+  .avatar.aceptada { background: #dcf1e4; color: var(--green); }
+  .avatar.pendiente { background: #fbe4d8; color: #d1591f; }
 
   .quote-info {
     flex: 1;
@@ -312,109 +316,352 @@
   .tab.active {
     color: var(--orange);
   }
+
+  /* --- Views --- */
+  .view {
+    display: none;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .view.active {
+    display: flex;
+  }
+
+  /* --- Cotizaciones header --- */
+  .list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: calc(env(safe-area-inset-top, 0px) + 14px) 20px 14px;
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .list-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+
+  .add-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--orange);
+    color: #fff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    line-height: 1;
+    flex-shrink: 0;
+    cursor: pointer;
+    box-shadow: 0 6px 14px rgba(240, 99, 31, 0.35);
+  }
+
+  /* --- Search --- */
+  .search-box {
+    position: relative;
+    margin: 4px 20px 12px;
+  }
+
+  .search-box svg {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .search-input {
+    width: 100%;
+    background: #eeeceb;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 14px 12px 40px;
+    font-size: 14px;
+    color: var(--text-dark);
+    font-family: inherit;
+  }
+
+  .search-input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .search-input:focus {
+    outline: 2px solid var(--orange);
+    outline-offset: -1px;
+  }
+
+  /* --- Filter pills --- */
+  .filter-pills {
+    display: flex;
+    gap: 8px;
+    padding: 0 20px 14px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .filter-pills::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pill {
+    flex-shrink: 0;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    background: #eeeceb;
+    color: var(--text-dark);
+    cursor: pointer;
+  }
+
+  .pill.active {
+    background: #16161a;
+    color: #fff;
+  }
+
+  /* --- Cotizaciones list --- */
+  .list-content {
+    flex: 1;
+    padding: 0 20px 20px;
+  }
+
+  .list-content .quote-list {
+    gap: 10px;
+  }
+
+  .list-content .quote-desc {
+    white-space: normal;
+  }
+
+  .empty-state {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 14px;
+    padding: 40px 0;
+  }
+
+  /* --- Empresa placeholder --- */
+  .placeholder-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
 </style>
 </head>
 <body>
 
-  <header class="app-header">
-    <div class="brand">
-      <div class="brand-logo">V</div>
-      <div>
-        <div class="brand-name">VIEXSA</div>
-        <div class="brand-sub">Vidrios interiores y exteriores</div>
+  <section class="view active" id="view-inicio">
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-logo">V</div>
+        <div>
+          <div class="brand-name">VIEXSA</div>
+          <div class="brand-sub">Vidrios interiores y exteriores</div>
+        </div>
+      </div>
+      <button class="bell" aria-label="Notificaciones">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path d="M18 16v-5a6 6 0 10-12 0v5l-2 2v1h16v-1l-2-2z" stroke="#555" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M10 21a2 2 0 004 0" stroke="#555" stroke-width="1.6"/>
+        </svg>
+      </button>
+    </header>
+
+    <div class="content">
+      <div class="greeting-label">Buenos días,</div>
+      <div class="greeting-name">Javier Sánchez</div>
+
+      <div class="summary-card">
+        <div class="summary-label">Cotizado en junio</div>
+        <div class="summary-amount">$18,430<span class="cents">.00</span></div>
+        <div class="summary-stats">
+          <div class="stat-box">
+            <div class="stat-value">12</div>
+            <div class="stat-label">Cotizaciones</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value">3</div>
+            <div class="stat-label">Pendientes</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="new-quote-btn">
+        <span>+</span> Nueva cotización
+      </button>
+
+      <div class="section-header">
+        <div class="section-title">Recientes</div>
+        <button class="section-link" data-goto="cotizaciones">Ver todas</button>
+      </div>
+
+      <div class="quote-list">
+        <div class="quote-item">
+          <div class="avatar enviada">MS</div>
+          <div class="quote-info">
+            <div class="quote-name">Madelaine de Sosa</div>
+            <div class="quote-desc">Vidrios de mesa</div>
+          </div>
+          <div class="quote-meta">
+            <div class="quote-price">$2,632.20</div>
+            <div class="quote-status enviada">Enviada</div>
+          </div>
+        </div>
+
+        <div class="quote-item">
+          <div class="avatar aceptada">CR</div>
+          <div class="quote-info">
+            <div class="quote-name">Comercial El Roble</div>
+            <div class="quote-desc">Ventana corrediza</div>
+          </div>
+          <div class="quote-meta">
+            <div class="quote-price">$1,845.00</div>
+            <div class="quote-status aceptada">Aceptada</div>
+          </div>
+        </div>
+
+        <div class="quote-item">
+          <div class="avatar pendiente">RH</div>
+          <div class="quote-info">
+            <div class="quote-name">Roberto Him</div>
+            <div class="quote-desc">Puerta de baño templada</div>
+          </div>
+          <div class="quote-meta">
+            <div class="quote-price">$980.50</div>
+            <div class="quote-status pendiente">Pendiente</div>
+          </div>
+        </div>
       </div>
     </div>
-    <button class="bell" aria-label="Notificaciones">
+  </section>
+
+  <section class="view" id="view-cotizaciones">
+    <header class="list-header">
+      <div class="list-title">Cotizaciones</div>
+      <button class="add-btn" aria-label="Nueva cotización">+</button>
+    </header>
+
+    <div class="search-box">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-        <path d="M18 16v-5a6 6 0 10-12 0v5l-2 2v1h16v-1l-2-2z" stroke="#555" stroke-width="1.6" stroke-linejoin="round"/>
-        <path d="M10 21a2 2 0 004 0" stroke="#555" stroke-width="1.6"/>
+        <circle cx="11" cy="11" r="7" stroke="#8a8a8a" stroke-width="1.8"/>
+        <path d="M20 20l-3.5-3.5" stroke="#8a8a8a" stroke-width="1.8" stroke-linecap="round"/>
       </svg>
-    </button>
-  </header>
-
-  <main class="content">
-    <div class="greeting-label">Buenos días,</div>
-    <div class="greeting-name">Javier Sánchez</div>
-
-    <div class="summary-card">
-      <div class="summary-label">Cotizado en junio</div>
-      <div class="summary-amount">$18,430<span class="cents">.00</span></div>
-      <div class="summary-stats">
-        <div class="stat-box">
-          <div class="stat-value">12</div>
-          <div class="stat-label">Cotizaciones</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-value">3</div>
-          <div class="stat-label">Pendientes</div>
-        </div>
-      </div>
+      <input class="search-input" type="text" placeholder="Buscar cliente o producto" id="search-input">
     </div>
 
-    <button class="new-quote-btn">
-      <span>+</span> Nueva cotización
-    </button>
-
-    <div class="section-header">
-      <div class="section-title">Recientes</div>
-      <button class="section-link">Ver todas</button>
+    <div class="filter-pills" id="filter-pills">
+      <button class="pill active" data-filter="todas">Todas</button>
+      <button class="pill" data-filter="aceptada">Aceptadas</button>
+      <button class="pill" data-filter="pendiente">Pendientes</button>
+      <button class="pill" data-filter="enviada">Enviadas</button>
     </div>
 
-    <div class="quote-list">
-      <div class="quote-item">
-        <div class="avatar a1">MS</div>
-        <div class="quote-info">
-          <div class="quote-name">Madelaine de Sosa</div>
-          <div class="quote-desc">Vidrios de mesa</div>
+    <div class="list-content">
+      <div class="quote-list" id="quote-list">
+        <div class="quote-item" data-status="enviada" data-search="madelaine de sosa vidrios de mesa">
+          <div class="avatar enviada">MS</div>
+          <div class="quote-info">
+            <div class="quote-name">Madelaine de Sosa</div>
+            <div class="quote-desc">Vidrios de mesa · 11 Jun 2026</div>
+          </div>
+          <div class="quote-meta">
+            <div class="quote-price">$2,632.20</div>
+            <div class="quote-status enviada">Enviada</div>
+          </div>
         </div>
-        <div class="quote-meta">
-          <div class="quote-price">$2,632.20</div>
-          <div class="quote-status enviada">Enviada</div>
+
+        <div class="quote-item" data-status="aceptada" data-search="comercial el roble ventana corrediza">
+          <div class="avatar aceptada">CR</div>
+          <div class="quote-info">
+            <div class="quote-name">Comercial El Roble</div>
+            <div class="quote-desc">Ventana corrediza · 9 Jun 2026</div>
+          </div>
+          <div class="quote-meta">
+            <div class="quote-price">$1,845.00</div>
+            <div class="quote-status aceptada">Aceptada</div>
+          </div>
+        </div>
+
+        <div class="quote-item" data-status="pendiente" data-search="roberto him puerta de baño templada">
+          <div class="avatar pendiente">RH</div>
+          <div class="quote-info">
+            <div class="quote-name">Roberto Him</div>
+            <div class="quote-desc">Puerta de baño templada · 5 Jun 2026</div>
+          </div>
+          <div class="quote-meta">
+            <div class="quote-price">$980.50</div>
+            <div class="quote-status pendiente">Pendiente</div>
+          </div>
+        </div>
+
+        <div class="quote-item" data-status="aceptada" data-search="farmacia arrocha vitrina de vidrio">
+          <div class="avatar aceptada">FA</div>
+          <div class="quote-info">
+            <div class="quote-name">Farmacia Arrocha</div>
+            <div class="quote-desc">Vitrina de vidrio · 2 Jun 2026</div>
+          </div>
+          <div class="quote-meta">
+            <div class="quote-price">$4,210.00</div>
+            <div class="quote-status aceptada">Aceptada</div>
+          </div>
+        </div>
+
+        <div class="quote-item" data-status="enviada" data-search="ana castillo espejo con luz led">
+          <div class="avatar enviada">AC</div>
+          <div class="quote-info">
+            <div class="quote-name">Ana Castillo</div>
+            <div class="quote-desc">Espejo con luz LED · 28 May 2026</div>
+          </div>
+          <div class="quote-meta">
+            <div class="quote-price">$560.00</div>
+            <div class="quote-status enviada">Enviada</div>
+          </div>
         </div>
       </div>
 
-      <div class="quote-item">
-        <div class="avatar a2">CR</div>
-        <div class="quote-info">
-          <div class="quote-name">Comercial El Roble</div>
-          <div class="quote-desc">Ventana corrediza</div>
-        </div>
-        <div class="quote-meta">
-          <div class="quote-price">$1,845.00</div>
-          <div class="quote-status aceptada">Aceptada</div>
-        </div>
-      </div>
-
-      <div class="quote-item">
-        <div class="avatar a3">RH</div>
-        <div class="quote-info">
-          <div class="quote-name">Roberto Him</div>
-          <div class="quote-desc">Puerta de baño templada</div>
-        </div>
-        <div class="quote-meta">
-          <div class="quote-price">$980.50</div>
-          <div class="quote-status pendiente">Pendiente</div>
-        </div>
-      </div>
+      <div class="empty-state" id="empty-state" hidden>No se encontraron cotizaciones.</div>
     </div>
-  </main>
+  </section>
+
+  <section class="view" id="view-empresa">
+    <header class="list-header">
+      <div class="list-title">Empresa</div>
+    </header>
+    <div class="placeholder-content">
+      Próximamente: información de tu empresa y equipo.
+    </div>
+  </section>
 
   <nav class="tab-bar">
-    <button class="tab active">
+    <button class="tab active" data-view="inicio">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
         <path d="M3 11l9-8 9 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M5 10v10h14V10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       Inicio
     </button>
-    <button class="tab">
+    <button class="tab" data-view="cotizaciones">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
         <rect x="5" y="3" width="14" height="18" rx="2" stroke="currentColor" stroke-width="1.8"/>
         <path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
       </svg>
       Cotizaciones
     </button>
-    <button class="tab">
+    <button class="tab" data-view="empresa">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
         <path d="M4 21V8l8-5 8 5v13" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
         <path d="M9 21v-6h6v6" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
@@ -429,6 +676,52 @@
         navigator.serviceWorker.register("sw.js");
       });
     }
+
+    const tabs = document.querySelectorAll(".tab");
+    const views = document.querySelectorAll(".view");
+
+    function switchView(name) {
+      views.forEach((view) => view.classList.toggle("active", view.id === "view-" + name));
+      tabs.forEach((tab) => tab.classList.toggle("active", tab.dataset.view === name));
+    }
+
+    tabs.forEach((tab) => tab.addEventListener("click", () => switchView(tab.dataset.view)));
+
+    document.querySelectorAll("[data-goto]").forEach((el) => {
+      el.addEventListener("click", () => switchView(el.dataset.goto));
+    });
+
+    const searchInput = document.getElementById("search-input");
+    const pills = document.querySelectorAll(".pill");
+    const quoteItems = document.querySelectorAll("#quote-list .quote-item");
+    const emptyState = document.getElementById("empty-state");
+    let activeFilter = "todas";
+
+    function applyFilters() {
+      const term = searchInput.value.trim().toLowerCase();
+      let visibleCount = 0;
+
+      quoteItems.forEach((item) => {
+        const matchesFilter = activeFilter === "todas" || item.dataset.status === activeFilter;
+        const matchesSearch = !term || item.dataset.search.includes(term);
+        const visible = matchesFilter && matchesSearch;
+        item.hidden = !visible;
+        if (visible) visibleCount++;
+      });
+
+      emptyState.hidden = visibleCount > 0;
+    }
+
+    pills.forEach((pill) => {
+      pill.addEventListener("click", () => {
+        pills.forEach((p) => p.classList.remove("active"));
+        pill.classList.add("active");
+        activeFilter = pill.dataset.filter;
+        applyFilters();
+      });
+    });
+
+    searchInput.addEventListener("input", applyFilters);
   </script>
 
 </body>
