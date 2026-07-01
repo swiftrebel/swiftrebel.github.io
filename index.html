@@ -222,6 +222,7 @@
     border-radius: 14px;
     padding: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    cursor: pointer;
   }
 
   .avatar {
@@ -1582,19 +1583,20 @@
     }
 
     // ---------- Quotes data ----------
+    let nextQuoteId = 6;
     let quotes = [
-      { name: "Madelaine de Sosa", desc: "Vidrios de mesa", dateLabel: "11 Jun 2026", amount: 2632.20, status: "enviada" },
-      { name: "Comercial El Roble", desc: "Ventana corrediza", dateLabel: "9 Jun 2026", amount: 1845.00, status: "aceptada" },
-      { name: "Roberto Him", desc: "Puerta de baño templada", dateLabel: "5 Jun 2026", amount: 980.50, status: "pendiente" },
-      { name: "Farmacia Arrocha", desc: "Vitrina de vidrio", dateLabel: "2 Jun 2026", amount: 4210.00, status: "aceptada" },
-      { name: "Ana Castillo", desc: "Espejo con luz LED", dateLabel: "28 May 2026", amount: 560.00, status: "enviada" },
+      { id: 1, name: "Madelaine de Sosa", desc: "Vidrios de mesa", dateLabel: "11 Jun 2026", amount: 2632.20, status: "enviada", address: "Buenaventura 130-132", productSummary: "Vidrios de mesa", taxEnabled: false, products: [{ name: "Vidrios de mesa", desc: "", qty: 1, width: "", height: "", price: 2632.20 }] },
+      { id: 2, name: "Comercial El Roble", desc: "Ventana corrediza", dateLabel: "9 Jun 2026", amount: 1845.00, status: "aceptada", address: "Vía España, Local 12", productSummary: "Ventana corrediza", taxEnabled: false, products: [{ name: "Ventana corrediza", desc: "", qty: 1, width: "", height: "", price: 1845.00 }] },
+      { id: 3, name: "Roberto Him", desc: "Puerta de baño templada", dateLabel: "5 Jun 2026", amount: 980.50, status: "pendiente", address: "Costa del Este, calle 3ra", productSummary: "Puerta de baño templada", taxEnabled: false, products: [{ name: "Puerta de baño templada", desc: "", qty: 1, width: "", height: "", price: 980.50 }] },
+      { id: 4, name: "Farmacia Arrocha", desc: "Vitrina de vidrio", dateLabel: "2 Jun 2026", amount: 4210.00, status: "aceptada", address: "Av. Central, Edificio Plaza", productSummary: "Vitrina de vidrio", taxEnabled: false, products: [{ name: "Vitrina de vidrio", desc: "", qty: 1, width: "", height: "", price: 4210.00 }] },
+      { id: 5, name: "Ana Castillo", desc: "Espejo con luz LED", dateLabel: "28 May 2026", amount: 560.00, status: "enviada", address: "El Dorado, calle 45", productSummary: "Espejo con luz LED", taxEnabled: false, products: [{ name: "Espejo con luz LED", desc: "", qty: 1, width: "", height: "", price: 560.00 }] },
     ];
 
     function quoteItemHtml(q, showDate) {
       const initials = initialsFrom(q.name);
       const desc = showDate ? `${q.desc} · ${q.dateLabel}` : q.desc;
       return `
-        <div class="quote-item">
+        <div class="quote-item" data-action="edit-quote" data-id="${q.id}">
           <div class="avatar ${q.status}">${escapeHtml(initials)}</div>
           <div class="quote-info">
             <div class="quote-name">${escapeHtml(q.name)}</div>
@@ -1605,6 +1607,11 @@
             <div class="quote-status ${q.status}">${STATUS_LABELS[q.status]}</div>
           </div>
         </div>`;
+    }
+
+    function handleQuoteItemClick(e, fromView) {
+      const row = e.target.closest('[data-action="edit-quote"]');
+      if (row) openEditQuote(Number(row.dataset.id), fromView);
     }
 
     function renderRecientes() {
@@ -1647,6 +1654,9 @@
     });
 
     searchInput.addEventListener("input", renderQuoteList);
+
+    document.getElementById("quote-list").addEventListener("click", (e) => handleQuoteItemClick(e, "cotizaciones"));
+    document.getElementById("recientes-list").addEventListener("click", (e) => handleQuoteItemClick(e, "inicio"));
 
     // ---------- Nueva cotización form ----------
     const clientNameInput = document.getElementById("client-name");
@@ -1795,6 +1805,23 @@
       switchView("nueva");
     }
 
+    function openEditQuote(id, fromView) {
+      const quote = quotes.find((q) => q.id === id);
+      if (!quote) return;
+      returnView = fromView;
+      currentQuoteRecord = quote;
+      clientNameInput.value = quote.name;
+      clientAddressInput.value = quote.address || "";
+      clientProductInput.value = quote.productSummary || "";
+      clientNameInput.classList.remove("input-error");
+      productsContainer.classList.remove("input-error");
+      formProducts = quote.products.map((p) => ({ ...p }));
+      taxToggle.checked = quote.taxEnabled !== false;
+      renderProductsSummary();
+      recalcTotals();
+      switchView("nueva");
+    }
+
     document.getElementById("new-quote-btn-inicio").addEventListener("click", () => openNuevaCotizacion("inicio"));
     document.getElementById("add-btn-cotizaciones").addEventListener("click", () => openNuevaCotizacion("cotizaciones"));
 
@@ -1821,12 +1848,16 @@
 
     function persistQuote(data, totals, status) {
       if (!currentQuoteRecord) {
-        currentQuoteRecord = { dateLabel: formatDateLabel(new Date()), status: "pendiente" };
+        currentQuoteRecord = { id: nextQuoteId++, dateLabel: formatDateLabel(new Date()), status: "pendiente" };
         quotes.unshift(currentQuoteRecord);
       }
       currentQuoteRecord.name = data.name;
       currentQuoteRecord.desc = data.validProducts.map((p) => p.name.trim()).join(", ");
       currentQuoteRecord.amount = totals.total;
+      currentQuoteRecord.address = clientAddressInput.value.trim();
+      currentQuoteRecord.productSummary = clientProductInput.value.trim() || data.validProducts[0].name;
+      currentQuoteRecord.products = data.validProducts.map((p) => ({ ...p }));
+      currentQuoteRecord.taxEnabled = taxToggle.checked;
       if (status === "enviada" || currentQuoteRecord.status !== "enviada") {
         currentQuoteRecord.status = status;
       }
