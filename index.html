@@ -29,6 +29,7 @@
     margin: 0;
     padding: 0;
     height: 100%;
+    overflow: hidden;
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
     background: var(--bg);
   }
@@ -36,7 +37,7 @@
   body {
     display: flex;
     flex-direction: column;
-    min-height: 100dvh;
+    height: 100dvh;
   }
 
   /* --- App header --- */
@@ -338,6 +339,9 @@
     flex-direction: column;
     flex: 1;
     min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
   }
 
   .view.active {
@@ -487,17 +491,6 @@
     height: 36px;
     border-radius: 10px;
     object-fit: cover;
-  }
-
-  .change-logo-btn {
-    display: block;
-    margin: 12px auto 0;
-    background: none;
-    border: none;
-    color: var(--orange);
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
   }
 
   /* --- Nueva cotización modal header --- */
@@ -1239,15 +1232,12 @@
     <div class="content">
       <div class="company-logo-card">
         <div class="company-logo-preview">
-          <img class="brand-logo-img" id="company-logo-fallback" src="assets/v-logo.svg" alt="Logo VIEXSA">
-          <img class="brand-logo-img" id="company-logo-img" alt="Logo de la empresa" hidden>
+          <img class="brand-logo-img" src="assets/v-logo.svg" alt="Logo VIEXSA">
           <div>
             <div class="brand-name">VIEXSA</div>
             <div class="brand-sub">Vidrios interiores y exteriores S.A.</div>
           </div>
         </div>
-        <button type="button" class="change-logo-btn" id="change-logo-btn">Cambiar logo</button>
-        <input type="file" id="logo-file-input" accept="image/*" hidden>
       </div>
 
       <div class="form-section-label" style="margin-top: 20px;">Información</div>
@@ -1559,7 +1549,6 @@
       warranty: "6 meses",
       validity: "30 días",
       itbms: 7,
-      logoDataUrl: "",
     };
 
     function loadCompanyData() {
@@ -2235,24 +2224,10 @@
       itbms: document.getElementById("default-itbms"),
     };
 
-    function renderCompanyLogo() {
-      const img = document.getElementById("company-logo-img");
-      const fallback = document.getElementById("company-logo-fallback");
-      if (companyData.logoDataUrl) {
-        img.src = companyData.logoDataUrl;
-        img.hidden = false;
-        fallback.hidden = true;
-      } else {
-        img.hidden = true;
-        fallback.hidden = false;
-      }
-    }
-
     function renderCompanyForm() {
       Object.entries(companyFieldInputs).forEach(([key, input]) => {
         input.value = companyData[key];
       });
-      renderCompanyLogo();
     }
 
     Object.entries(companyFieldInputs).forEach(([key, input]) => {
@@ -2264,22 +2239,6 @@
           recalcTotals();
         }
       });
-    });
-
-    document.getElementById("change-logo-btn").addEventListener("click", () => {
-      document.getElementById("logo-file-input").click();
-    });
-
-    document.getElementById("logo-file-input").addEventListener("change", (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = () => {
-        companyData.logoDataUrl = reader.result;
-        saveCompanyData();
-        renderCompanyLogo();
-      };
-      reader.readAsDataURL(file);
     });
 
     // ---------- Init ----------
