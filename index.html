@@ -468,31 +468,6 @@
     padding: 40px 0;
   }
 
-  /* --- Empresa --- */
-  .company-logo-card {
-    background: var(--card-bg);
-    border-radius: 14px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  }
-
-  .company-logo-preview {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: #fdece1;
-    padding: 12px 18px;
-    border-radius: 14px;
-  }
-
-  .company-logo-preview img {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    object-fit: cover;
-  }
-
   /* --- Nueva cotización modal header --- */
   .modal-header {
     display: flex;
@@ -1230,15 +1205,6 @@
     </header>
 
     <div class="content">
-      <div class="company-logo-card">
-        <div class="company-logo-preview">
-          <img class="brand-logo-img" src="assets/v-logo.svg" alt="Logo VIEXSA">
-          <div>
-            <div class="brand-name">VIEXSA</div>
-            <div class="brand-sub">Vidrios interiores y exteriores S.A.</div>
-          </div>
-        </div>
-      </div>
 
       <div class="form-section-label" style="margin-top: 20px;">Información</div>
       <div class="form-card">
@@ -1471,6 +1437,10 @@
       Cotizaciones
     </button>
     <button class="tab" data-view="empresa">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <path d="M4 21V8l8-5 8 5v13" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M9 21v-6h6v6" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      </svg>
       Empresa
     </button>
   </nav>
@@ -1536,7 +1506,7 @@
     const COMPANY_STORAGE_KEY = "viexsa-company";
     const DEFAULT_COMPANY = {
       name: "VIEXSA — Vidrios Interiores y Exteriores S.A.",
-      address: "Villa Guadalupe, calle A, lote 3-68",
+      address: "Villa Guadalupe, Calle A, Lote 3-68",
       phones: "6617-8255 / 6925-0944",
       email: "vidriointeriores@gmail.com",
       ruc: "1987541-1-738127 D.V. 58",
@@ -1876,8 +1846,8 @@
     // ---------- Vista previa & export ----------
     const COMPANY = {
       name: "VIEXSA",
-      sub: "Vidrios interiores y exteriores S.A.",
-      contact: "Calle Guadalupe, Local A · Tel: 6617-0234 / 6503-0964 · calle.central@gmail.com · R.U.C. 7987621-1-729127 D.V. 08",
+      sub: "Vidrios Interiores y Exteriores S.A.",
+      contact: "Villa Guadalupe, Calle A, Lote 3-68 · Tel: 6617-0234 / 6503-0964 · vidriointeriores@gmail.com · R.U.C. 7987621-1-729127 D.V. 08",
       preparedBy: "Javier A. Sánchez F.",
     };
 
