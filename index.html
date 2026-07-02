@@ -9,8 +9,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Viexsa">
 <link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="icon" href="icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" href="icons/icon-120.png" type="image/png">
 <title>Viexsa · Cotizaciones</title>
 <style>
   :root {
@@ -69,6 +69,14 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+  }
+
+  .brand-logo-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    object-fit: cover;
   }
 
   .brand-name {
@@ -921,14 +929,8 @@
     width: 20px;
     height: 20px;
     border-radius: 5px;
-    background: var(--orange);
-    color: #fff;
-    font-weight: 700;
-    font-size: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     flex-shrink: 0;
+    object-fit: cover;
   }
 
   .doc-brand-name {
@@ -1156,10 +1158,10 @@
   <section class="view active" id="view-inicio">
     <header class="app-header">
       <div class="brand">
-        <div class="brand-logo">V</div>
+        <img class="brand-logo-img" src="assets/v-logo.svg" alt="Logo VIEXSA">
         <div>
           <div class="brand-name">VIEXSA</div>
-          <div class="brand-sub">Vidrios interiores y exteriores</div>
+          <div class="brand-sub">Vidrios Interiores y Exteriores</div>
         </div>
       </div>
       <button class="bell" aria-label="Notificaciones">
@@ -1237,8 +1239,8 @@
     <div class="content">
       <div class="company-logo-card">
         <div class="company-logo-preview">
-          <div class="brand-logo" id="company-logo-fallback">V</div>
-          <img id="company-logo-img" alt="Logo de la empresa" hidden>
+          <img class="brand-logo-img" id="company-logo-fallback" src="assets/v-logo.svg" alt="Logo VIEXSA">
+          <img class="brand-logo-img" id="company-logo-img" alt="Logo de la empresa" hidden>
           <div>
             <div class="brand-name">VIEXSA</div>
             <div class="brand-sub">Vidrios interiores y exteriores S.A.</div>
@@ -1916,7 +1918,7 @@
       document.getElementById("doc-page").innerHTML = `
         <div class="doc-header">
           <div class="doc-brand">
-            <div class="doc-logo">V</div>
+            <img class="doc-logo" src="assets/v-logo.svg" alt="Logo VIEXSA">
             <div>
               <div class="doc-brand-name">${company.name}</div>
               <div class="doc-brand-sub">${escapeHtml(company.sub)}</div>
@@ -1977,21 +1979,32 @@
       `;
     }
 
-    function buildQuotePdf(fields, totals) {
+    let logoDataUrlPromise = null;
+    function getLogoDataUrl() {
+      if (!logoDataUrlPromise) {
+        logoDataUrlPromise = fetch("icons/icon-256.png")
+          .then((res) => res.blob())
+          .then((blob) => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+          }));
+      }
+      return logoDataUrlPromise;
+    }
+
+    async function buildQuotePdf(fields, totals) {
       const company = getCompanyDoc();
       const terms = getTerms();
+      const logoDataUrl = await getLogoDataUrl();
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ unit: "mm", format: "letter" });
       const pageWidth = doc.internal.pageSize.getWidth();
       const marginX = 15;
       let y = 18;
 
-      doc.setFillColor(240, 99, 31);
-      doc.roundedRect(marginX, y - 5, 8, 8, 1.5, 1.5, "F");
-      doc.setTextColor(255, 255, 255);
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(10);
-      doc.text("V", marginX + 4, y, { align: "center" });
+      doc.addImage(logoDataUrl, "PNG", marginX, y - 5, 8, 8);
 
       doc.setTextColor(240, 99, 31);
       doc.setFontSize(13);
@@ -2175,16 +2188,16 @@
     document.getElementById("preview-btn").addEventListener("click", openVistaPrevia);
     document.getElementById("preview-back-btn").addEventListener("click", () => switchView("nueva"));
 
-    document.getElementById("pdf-btn").addEventListener("click", () => {
+    document.getElementById("pdf-btn").addEventListener("click", async () => {
       persistQuote({ name: previewFields.name, validProducts: previewFields.products }, previewTotals, "pendiente");
-      const doc = buildQuotePdf(previewFields, previewTotals);
+      const doc = await buildQuotePdf(previewFields, previewTotals);
       doc.save(`cotizacion-${slug(previewFields.name)}.pdf`);
       showToast("PDF descargado");
     });
 
     async function shareToWhatsApp() {
       persistQuote({ name: previewFields.name, validProducts: previewFields.products }, previewTotals, "enviada");
-      const doc = buildQuotePdf(previewFields, previewTotals);
+      const doc = await buildQuotePdf(previewFields, previewTotals);
       const filename = `cotizacion-${slug(previewFields.name)}.pdf`;
       const text = `Cotización para ${previewFields.name} — Total ${formatCurrency(previewTotals.total)}`;
 

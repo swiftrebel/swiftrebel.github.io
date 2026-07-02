@@ -1,13 +1,14 @@
-const CACHE_NAME = "viexsa-v2";
+const CACHE_NAME = "viexsa-v4";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./manifest.json",
-  "./icons/icon-192.png",
+  "./icons/icon-120.png",
+  "./icons/icon-180.png",
+  "./icons/icon-256.png",
   "./icons/icon-512.png",
-  "./icons/icon-512-maskable.png",
-  "./icons/apple-touch-icon.png",
   "./vendor/jspdf.umd.min.js",
+  "./assets/v-logo.svg",
 ];
 
 self.addEventListener("install", (event) => {
