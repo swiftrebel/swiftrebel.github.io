@@ -366,6 +366,40 @@
     color: var(--text-dark);
   }
 
+  .list-header-stacked {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+  }
+
+  .list-header-stacked .list-title {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+  }
+
+  .list-subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .company-logo-card {
+    background: var(--card-bg);
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  .company-logo-preview {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #fdece1;
+    padding: 12px 18px;
+    border-radius: 14px;
+  }
+
   .add-btn {
     width: 38px;
     height: 38px;
@@ -403,7 +437,7 @@
     border: none;
     border-radius: 12px;
     padding: 12px 14px 12px 40px;
-    font-size: 14px;
+    font-size: 16px;
     color: var(--text-dark);
     font-family: inherit;
   }
@@ -554,11 +588,21 @@
     border: none;
     background: none;
     text-align: right;
-    font-size: 14px;
+    font-size: 16px;
     color: var(--text-dark);
     font-family: inherit;
     font-weight: 500;
     min-width: 0;
+  }
+
+  .form-row input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  .form-row input[type="number"]::-webkit-outer-spin-button,
+  .form-row input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 
   .form-row input:focus {
@@ -586,7 +630,7 @@
   }
 
   .price-field span {
-    font-size: 14px;
+    font-size: 16px;
     color: var(--text-muted);
     flex-shrink: 0;
   }
@@ -596,11 +640,21 @@
     border: none;
     background: none;
     text-align: right;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     color: var(--text-dark);
     font-family: inherit;
     min-width: 0;
+  }
+
+  .price-field input::-webkit-outer-spin-button,
+  .price-field input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .price-field input[type="number"] {
+    -moz-appearance: textfield;
   }
 
   .price-field input:focus {
@@ -1183,7 +1237,7 @@
         <circle cx="11" cy="11" r="7" stroke="#8a8a8a" stroke-width="1.8"/>
         <path d="M20 20l-3.5-3.5" stroke="#8a8a8a" stroke-width="1.8" stroke-linecap="round"/>
       </svg>
-      <input class="search-input" type="text" placeholder="Buscar cliente o producto" id="search-input">
+      <input class="search-input" type="text" placeholder="Buscar cliente o producto" id="search-input" enterkeyhint="search">
     </div>
 
     <div class="filter-pills" id="filter-pills">
@@ -1200,33 +1254,44 @@
   </section>
 
   <section class="view" id="view-empresa">
-    <header class="list-header">
+    <header class="list-header list-header-stacked">
       <div class="list-title">Datos de empresa</div>
+      <div class="list-subtitle">Esta información aparece en tus cotizaciones</div>
     </header>
 
     <div class="content">
+
+      <div class="company-logo-card">
+        <div class="company-logo-preview">
+          <img class="brand-logo-img" src="assets/v-logo.svg" alt="Logo VIEXSA">
+          <div>
+            <div class="brand-name">VIEXSA</div>
+            <div class="brand-sub">Vidrios interiores y exteriores S.A.</div>
+          </div>
+        </div>
+      </div>
 
       <div class="form-section-label" style="margin-top: 20px;">Información</div>
       <div class="form-card">
         <div class="form-row">
           <label for="company-name">Empresa</label>
-          <input type="text" id="company-name">
+          <input type="text" id="company-name" enterkeyhint="next">
         </div>
         <div class="form-row">
           <label for="company-address">Dirección</label>
-          <input type="text" id="company-address">
+          <input type="text" id="company-address" enterkeyhint="next">
         </div>
         <div class="form-row">
           <label for="company-phones">Teléfonos</label>
-          <input type="text" id="company-phones">
+          <input type="text" id="company-phones" enterkeyhint="next">
         </div>
         <div class="form-row">
           <label for="company-email">Email</label>
-          <input type="email" id="company-email">
+          <input type="email" id="company-email" enterkeyhint="next">
         </div>
         <div class="form-row">
           <label for="company-ruc">R.U.C.</label>
-          <input type="text" id="company-ruc">
+          <input type="text" id="company-ruc" enterkeyhint="next">
         </div>
       </div>
 
@@ -1234,24 +1299,24 @@
       <div class="form-card">
         <div class="form-row">
           <label for="default-encargado">Encargado</label>
-          <input type="text" id="default-encargado">
+          <input type="text" id="default-encargado" enterkeyhint="next">
         </div>
         <div class="form-row">
           <label for="default-delivery">Tiempo de entrega</label>
-          <input type="text" id="default-delivery">
+          <input type="text" id="default-delivery" enterkeyhint="next">
         </div>
         <div class="form-row">
           <label for="default-warranty">Garantía</label>
-          <input type="text" id="default-warranty">
+          <input type="text" id="default-warranty" enterkeyhint="next">
         </div>
         <div class="form-row">
           <label for="default-validity">Validez del precio</label>
-          <input type="text" id="default-validity">
+          <input type="text" id="default-validity" enterkeyhint="next">
         </div>
         <div class="form-row">
           <label for="default-itbms">ITBMS por defecto</label>
           <div class="price-field">
-            <input type="number" id="default-itbms" min="0" max="100" step="0.1">
+            <input type="number" id="default-itbms" min="0" max="100" step="0.1" enterkeyhint="done">
             <span>%</span>
           </div>
         </div>
@@ -1272,15 +1337,15 @@
         <div class="form-card">
           <div class="form-row">
             <label for="client-name">Nombre</label>
-            <input type="text" id="client-name" placeholder="Nombre del cliente">
+            <input type="text" id="client-name" placeholder="Nombre del cliente" enterkeyhint="next">
           </div>
           <div class="form-row">
             <label for="client-address">Dirección</label>
-            <input type="text" id="client-address" placeholder="Dirección">
+            <input type="text" id="client-address" placeholder="Dirección" enterkeyhint="next">
           </div>
           <div class="form-row">
             <label for="client-product">Producto</label>
-            <input type="text" id="client-product" placeholder="Resumen del producto">
+            <input type="text" id="client-product" placeholder="Resumen del producto" enterkeyhint="done">
           </div>
         </div>
       </div>
@@ -1343,7 +1408,7 @@
         <div class="form-section-label">Producto</div>
         <div class="form-card">
           <div class="form-row">
-            <input type="text" id="ap-name" placeholder="Nombre del producto" style="text-align: left;">
+            <input type="text" id="ap-name" placeholder="Nombre del producto" style="text-align: left;" enterkeyhint="next">
           </div>
         </div>
       </div>
@@ -1352,7 +1417,7 @@
         <div class="form-section-label">Detalles</div>
         <div class="form-card">
           <div class="form-row">
-            <input type="text" id="ap-desc" placeholder="Ej. 6mm pintados en gris según muestra" style="text-align: left;">
+            <input type="text" id="ap-desc" placeholder="Ej. 6mm pintados en gris según muestra" style="text-align: left;" enterkeyhint="next">
           </div>
         </div>
       </div>
@@ -1362,21 +1427,21 @@
         <div class="form-card">
           <div class="form-row">
             <label for="ap-qty">Cantidad</label>
-            <input type="text" inputmode="numeric" pattern="[0-9]*" id="ap-qty" value="1">
+            <input type="text" inputmode="numeric" pattern="[0-9]*" id="ap-qty" value="1" enterkeyhint="next">
           </div>
           <div class="form-row">
             <label for="ap-width">Ancho</label>
-            <input type="number" inputmode="decimal" id="ap-width" placeholder="mm">
+            <input type="number" inputmode="decimal" id="ap-width" placeholder="mm" enterkeyhint="next">
           </div>
           <div class="form-row">
             <label for="ap-height">Alto</label>
-            <input type="number" inputmode="decimal" id="ap-height" placeholder="mm">
+            <input type="number" inputmode="decimal" id="ap-height" placeholder="mm" enterkeyhint="next">
           </div>
           <div class="form-row">
             <label for="ap-price">Precio</label>
             <div class="price-field">
               <span>B/.</span>
-              <input type="number" inputmode="decimal" id="ap-price" placeholder="0.00">
+              <input type="number" inputmode="decimal" id="ap-price" placeholder="0.00" enterkeyhint="done">
             </div>
           </div>
         </div>
@@ -2206,6 +2271,26 @@
         }
       });
     });
+
+    // ---------- Enter-key keyboard navigation ----------
+    function setupEnterKeyNav(scope) {
+      const fields = Array.from(scope.querySelectorAll('input[enterkeyhint="next"], input[enterkeyhint="done"]'));
+      fields.forEach((field, i) => {
+        field.addEventListener("keydown", (e) => {
+          if (e.key !== "Enter") return;
+          e.preventDefault();
+          if (field.getAttribute("enterkeyhint") === "next" && fields[i + 1]) {
+            fields[i + 1].focus();
+          } else {
+            field.blur();
+          }
+        });
+      });
+    }
+
+    setupEnterKeyNav(document.getElementById("view-nueva"));
+    setupEnterKeyNav(document.getElementById("view-agregar-producto"));
+    setupEnterKeyNav(document.getElementById("view-empresa"));
 
     // ---------- Init ----------
     renderCompanyForm();
