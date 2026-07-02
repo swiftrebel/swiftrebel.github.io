@@ -223,6 +223,12 @@
     padding: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     cursor: pointer;
+    transition: background-color .15s, transform .15s;
+  }
+
+  .quote-item:active {
+    background: #f0efed;
+    transform: scale(0.98);
   }
 
   .avatar {
@@ -640,6 +646,11 @@
     border-bottom: 1px solid #f0efed;
     gap: 10px;
     cursor: pointer;
+    transition: background-color .15s;
+  }
+
+  .product-row:active {
+    background: #f0efed;
   }
 
   .product-row:last-child {
