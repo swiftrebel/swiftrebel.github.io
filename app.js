@@ -25,7 +25,7 @@ function render(){
   h=u.length?`<h2>Próximas</h2>`+u.map(b=>{const v=vn(b.v);return `<div class="row" style="cursor:default">${art(v,'sm')}<div><b>${v.n}</b><small style="text-transform:capitalize">${fmt(b.date)} · ${b.slot}</small></div><button class="cancel" data-cancel="${b.id}">Cancelar</button></div>`}).join(''):`<div class="empty"><span>🗓️</span><b>Aún no tienes reservas</b><small>Explora lugares y reserva tu primer horario.</small></div>`}
  else{t='Buscar';h=`<div class="sb"><input id="q" type="search" placeholder="Canchas, barberías, yates…" value="${S.q}" autocomplete="off"></div><div class="pills">${CATS.map(c=>`<button class="pill ${S.cat==c.id?'on':''}" data-pill="${c.id}">${c.e} ${c.n}</button>`).join('')}</div><div id="res" style="margin-top:8px">${results()}</div>`}
  $('#view').innerHTML=`<h1>${t}</h1>${h}`;
- $('#bar span').textContent=t;
+ 
  $('#side').innerHTML=`<div class="brand"><i>◐</i>Bookealo</div>`+TABS.map(([k,l])=>`<button data-tab="${k}" class="${S.tab==k&&!S.cat||S.tab==k&&k!='explore'?'on':''}"><svg viewBox="0 0 24 24">${IC[k]}</svg>${l}${k=='bookings'&&S.bk.length?`<em>${S.bk.length}</em>`:''}</button>`).join('')+`<h4>Categorías</h4>`+CATS.map(c=>`<button data-cat="${c.id}" class="${S.cat==c.id&&S.tab=='explore'?'on':''}"><span>${c.e}</span>${c.n}</button>`).join('');
  $('#tabs').innerHTML=TABS.map(([k,l])=>`<button data-tab="${k}" class="${S.tab==k?'on':''}"><svg viewBox="0 0 24 24">${IC[k]}</svg>${l}</button>`).join('');
  mini();
@@ -66,7 +66,6 @@ document.addEventListener('click',e=>{
  else if('cancel'in D){S.bk=S.bk.filter(b=>b.id!=D.cancel);localStorage.setItem('bk',JSON.stringify(S.bk));render();toast('Reserva cancelada')}
 });
 document.addEventListener('input',e=>{if(e.target.id=='q'){S.q=e.target.value;$('#res').innerHTML=results()}});
-addEventListener('scroll',()=>$('#bar').classList.toggle('on',scrollY>44),{passive:true});
 render();
 if('serviceWorker'in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 
