@@ -10,7 +10,6 @@ const dayOf=i=>{const d=new Date();d.setDate(d.getDate()+i);return d};
 const fmt=d=>new Date(d).toLocaleDateString('es',{weekday:'short',day:'numeric',month:'short'});
 const taken=(id,d,s)=>[...(id+d+s)].reduce((a,c)=>a*31+c.charCodeAt(0)|0,7)%4==0;
 const upcoming=()=>S.bk.slice().sort((a,b)=>(a.date+a.slot).localeCompare(b.date+b.slot));
-function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),2200)}
 
 function render(){
  let t='',h='';
@@ -62,8 +61,8 @@ document.addEventListener('click',e=>{
  else if('pill'in D){S.cat=S.cat==D.pill?null:D.pill;render()}
  else if('d'in D){S.d=+D.d;S.s=null;days();slots()}
  else if('s'in D){S.s=D.s;slots()}
- else if('book'in D){const v=S.sel;S.bk.push({id:Date.now(),v:v.id,date:dayOf(S.d).toISOString().slice(0,10),slot:S.s});localStorage.setItem('bk',JSON.stringify(S.bk));closeSheet();render();toast('✓ Reserva confirmada')}
- else if('cancel'in D){S.bk=S.bk.filter(b=>b.id!=D.cancel);localStorage.setItem('bk',JSON.stringify(S.bk));render();toast('Reserva cancelada')}
+ else if('book'in D){const v=S.sel;S.bk.push({id:Date.now(),v:v.id,date:dayOf(S.d).toISOString().slice(0,10),slot:S.s});localStorage.setItem('bk',JSON.stringify(S.bk));closeSheet();render()}
+ else if('cancel'in D){S.bk=S.bk.filter(b=>b.id!=D.cancel);localStorage.setItem('bk',JSON.stringify(S.bk));render()}
 });
 document.addEventListener('input',e=>{if(e.target.id=='q'){S.q=e.target.value;$('#res').innerHTML=results()}});
 render();
